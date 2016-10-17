@@ -128,6 +128,7 @@ void Lth_ContextRun(Lth_Context *ctx);
 void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h);
 void Lth_ContextClipPop(Lth_Context *ctx);
 
+void Lth_DrawRectAndClip(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha);
 void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha);
 
 void Lth_ControlRun(Lth_Context *ctx, void *control_);

@@ -17,7 +17,11 @@
 // Extern Functions                                                           |
 //
 
-void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha)
+//
+// Lth_DrawRectAndClip
+//
+void Lth_DrawRectAndClip(Lth_Context *ctx, int x, int y, int w, int h,
+   __fixed alpha)
 {
    Lth_assert(ctx != NULL);
 
@@ -27,7 +31,14 @@ void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha)
       for(int iy = 0; iy < h; iy += 128)
          Lth_DrawSpriteAlpha(s"lithos_gfx/Base/Black128.png", ctx->hid.cur--,
             x + ix, y + iy, alpha);
+}
 
+//
+// Lth_DrawRect
+//
+void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha)
+{
+   Lth_DrawRectAndClip(ctx, x, y, w, h, alpha);
    Lth_ContextClipPop(ctx);
 }
 
