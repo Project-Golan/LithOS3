@@ -46,6 +46,11 @@ Lth_X(SIGUPDATE , update,  void, struct Lth_Context *, struct Lth_Control *)
             (name).data[cbIter - 1](__VA_ARGS__); \
    } \
    while(0)
+#define Lth_ControlCall(ctrl, name, ...) \
+   Lth_ListForEach(Lth_Control *owner, ctrl->descendants) \
+      Lth_Call(owner->cb.name, __VA_ARGS__); \
+   \
+   Lth_Call(ctrl->cb.name, __VA_ARGS__)
 
 
 //----------------------------------------------------------------------------|

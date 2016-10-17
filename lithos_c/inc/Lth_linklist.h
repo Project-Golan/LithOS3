@@ -17,6 +17,14 @@
 
 #include <stddef.h>
 
+#define Lth_ListForEach(tmpv, lst) \
+   for(Lth_LinkList *list = (lst); list; list = list->next) \
+      __with(tmpv = list->owner;)
+#define Lth_ListFor(tmpv, lst) \
+   for(Lth_LinkList *list = (lst); list;) \
+      __with(Lth_LinkList *next = list->next, **prev = list->prev; \
+         tmpv = list->owner;)
+
 
 //----------------------------------------------------------------------------|
 // Type Definitions                                                           |
