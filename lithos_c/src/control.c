@@ -8,7 +8,7 @@
 //
 // Control functions.
 //
-// # of rewrites because of DavidPH: 1
+// # of rewrites because of DavidPH: 2
 //
 //-----------------------------------------------------------------------------
 
@@ -24,66 +24,64 @@
 //
 // Lth_ControlRun
 //
-void Lth_ControlRun(Lth_Context *ctx, void *control_)
+void Lth_ControlRun(Lth_Context *ctx, void *ctrl_)
 {
    Lth_assert(ctx != NULL);
-   Lth_assert(control_ != NULL);
+   Lth_assert(ctrl_ != NULL);
 
-   Lth_Control *control = control_;
+   Lth_Control *ctrl = ctrl_;
 
-   Lth_Call(control->cb.update, ctx, control);
-   Lth_Call(control->cb.draw,   ctx, control);
+   Lth_ControlCall(ctrl, update,   ctx, ctrl);
+   Lth_ControlCall(ctrl, draw,     ctx, ctrl);
+   Lth_ControlCall(ctrl, postdraw, ctx, ctrl);
 }
 
 //
 // Lth_ControlConnect
 //
-void Lth_ControlConnect(void *control_, Lth_Signal signal, Lth_Callback_t cb)
+void Lth_ControlConnect(void *ctrl_, Lth_Signal signal, Lth_Callback_t cb)
 {
-   Lth_assert(control_ != NULL);
+   Lth_assert(ctrl_ != NULL);
    Lth_assert(signal < Lth_SIGMAX && signal >= 0);
    Lth_assert(cb != NULL);
 
-   Lth_Control *control = control_;
+   Lth_Control *ctrl = ctrl_;
 
    switch(signal)
    {
-#define vec(name) control->cb.name
 #define Lth_X(sig, name, ret, ...) \
    case Lth_##sig: \
-      vec(name).data = \
-         realloc(vec(name).data, \
-            sizeof(Lth_##sig##_t) * (vec(name).size + 1)); \
-      vec(name).data[vec(name).size++] = (Lth_##sig##_t)cb; \
+      ctrl->cb.name.data = realloc(ctrl->cb.name.data, \
+            sizeof(Lth_##sig##_t) * (ctrl->cb.name.size + 1)); \
+      ctrl->cb.name.data[ctrl->cb.name.size++] = (Lth_##sig##_t)cb; \
       break;
 #include "Lth_callback.h"
-#undef vec
    }
 }
 
 //
 // Lth_ControlDestroy
 //
-void Lth_ControlDestroy(void *control_)
+void Lth_ControlDestroy(void *ctrl_)
 {
-   Lth_assert(control_ != NULL);
+   if(ctrl_ == NULL) return;
 
-   Lth_Control *control = control_;
+   Lth_Control *ctrl = ctrl_;
 
-   for(Lth_LinkList *list = control->descendants; list;)
+   Lth_ListFor(Lth_Control *owner, ctrl->descendants)
    {
-      Lth_LinkList *next = list->next;
-      Lth_Control *owner = list->owner;
-
       Lth_ControlDestroy(owner);
-
       list = next;
    }
 
-   Lth_CallReverse(control->cb.destroy, control);
-   Lth_LinkListRemove(&control->desclink);
+   Lth_CallReverse(ctrl->cb.destroy, ctrl);
+   Lth_LinkListRemove(&ctrl->desclink);
 
-   free(control);
+#define Lth_X(sig, name, ret, ...) \
+   free(ctrl->cb.name.data);
+#include "Lth_callback.h"
+
+   free(ctrl);
 }
 
 

@@ -22,13 +22,30 @@
 //
 // Lth_WindowDraw
 //
-static void Lth_WindowDraw(Lth_Context *ctx, Lth_Window *window)
+static void Lth_WindowDraw(Lth_Context *ctx, Lth_Window *ctrl)
 {
-   Lth_DrawRect(ctx, window->x, window->y, window->w, window->h, 0.5k);
    ACS_SetFont(s"CONFONT");
-   Lth_PrintString(window->title);
-   Lth_HudMessagePlain(ctx->hid.cur--, window->x - 8 + Lth_A_Lef,
-      window->y - 8 + Lth_A_Top);
+   Lth_PrintString(ctrl->title);
+   Lth_HudMessagePlain(ctx->hid.cur--, ctrl->x - 8 + Lth_A_Lef,
+      ctrl->y - 8 + Lth_A_Top);
+   Lth_DrawRectAndClip(ctx, ctrl->x, ctrl->y, ctrl->w, ctrl->h, 0.5k);
+}
+
+//
+// Lth_WindowPostDraw
+//
+static void Lth_WindowPostDraw(Lth_Context *ctx, Lth_Window *ctrl)
+{
+   Lth_ContextClipPop(ctx);
+}
+
+//
+// Lth_WindowDestroy
+//
+static void Lth_WindowDestroy(Lth_Window *ctrl)
+{
+   if(ctrl->title)
+      free(ctrl->title);
 }
 
 
@@ -41,31 +58,33 @@ static void Lth_WindowDraw(Lth_Context *ctx, Lth_Window *window)
 //
 Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y)
 {
-   Lth_Window *control = calloc(1, sizeof(Lth_Window));
-   Lth_assert(control != NULL);
+   Lth_Window *ctrl = calloc(1, sizeof(Lth_Window));
+   Lth_assert(ctrl != NULL);
 
-   control->w = w;
-   control->h = h;
-   control->x = x;
-   control->y = y;
+   ctrl->w = w;
+   ctrl->h = h;
+   ctrl->x = x;
+   ctrl->y = y;
 
-   Lth_WindowSetTitle(control, title);
-   Lth_ControlConnect(control, Lth_SIGDRAW, Lth_Callback(Lth_WindowDraw));
+   Lth_WindowSetTitle(ctrl, title);
+   Lth_ControlConnect(ctrl, Lth_SIGDRAW, Lth_Callback(Lth_WindowDraw));
+   Lth_ControlConnect(ctrl, Lth_SIGPSTDRAW, Lth_Callback(Lth_WindowPostDraw));
+   Lth_ControlConnect(ctrl, Lth_SIGDESTROY, Lth_Callback(Lth_WindowDestroy));
 
-   return control;
+   return ctrl;
 }
 
 //
 // Lth_WindowSetTitle
 //
-void Lth_WindowSetTitle(Lth_Window *control, char const *title)
+void Lth_WindowSetTitle(Lth_Window *ctrl, char const *title)
 {
-   Lth_assert(control != NULL);
+   Lth_assert(ctrl != NULL);
 
    if(title != NULL)
-      control->title = Lth_strdup(title);
+      ctrl->title = Lth_strdup(title);
    else
-      control->title = Lth_strdup("<untitled>");
+      ctrl->title = Lth_strdup("<untitled>");
 }
 
 // EOF

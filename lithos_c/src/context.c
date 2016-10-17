@@ -40,21 +40,20 @@ Lth_Context *Lth_ContextNew(int w, int h, Lth_HID hidBase, Lth_HID hidEnd)
 //
 // Lth_ContextMap
 //
-void Lth_ContextMap(Lth_Context *ctx, Lth_Window *window)
+void Lth_ContextMap(Lth_Context *ctx, Lth_Window *ctrl)
 {
    Lth_assert(ctx != NULL);
-   Lth_assert(window != NULL);
+   Lth_assert(ctrl != NULL);
 
-   // TODO: should use last window's position + some divisor of screenspace
-   if(window->x == -1) window->x = ctx->w / 2;
-   if(window->y == -1) window->y = ctx->h / 2;
+   if(ctrl->x == -1) ctrl->x = ctx->w / 2;
+   if(ctrl->y == -1) ctrl->y = ctx->h / 2;
 
    if(ctx->map)
-      Lth_LinkListInsert(&window->desclink, window, &ctx->map);
+      Lth_LinkListInsert(&ctrl->desclink, ctrl, &ctx->map);
    else
    {
-      ctx->map = &window->desclink;
-      ctx->map->owner = window;
+      ctx->map = &ctrl->desclink;
+      ctx->map->owner = ctrl;
    }
 }
 
@@ -68,10 +67,8 @@ void Lth_ContextDestroy(Lth_Context *ctx)
 
    if(ctx->map)
    {
-      for(Lth_LinkList *list = ctx->map; list;)
+      Lth_ListFor(Lth_Control *owner, ctx->map)
       {
-         Lth_LinkList *next = list->next;
-         Lth_Control *owner = list->owner;
          Lth_LinkListRemove(list);
          if(owner) Lth_ControlDestroy(owner);
          list = next;
@@ -92,8 +89,8 @@ void Lth_ContextRun(Lth_Context *ctx)
    ctx->hid.cur = ctx->hid.base;
 
    if(ctx->map)
-      for(Lth_LinkList *list = ctx->map; list; list = list->next)
-         Lth_ControlRun(ctx, list->owner);
+      Lth_ListForEach(Lth_Control *owner, ctx->map)
+         Lth_ControlRun(ctx, owner);
 }
 
 //
@@ -103,8 +100,25 @@ void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h)
 {
    Lth_assert(ctx != NULL);
 
-   ctx->clip.rects[++ctx->clip.num] = (Lth_Rect){ x, y, w, h };
-   ACS_SetHudClipRect(x, y, w, h);
+   Lth_Rect rect = ctx->clip.rects[ctx->clip.num++];
+
+   if(!(rect.x == 0 && rect.y == 0 && rect.w == 0 && rect.h == 0))
+   {
+      if(rect.x < x) rect.x = x;
+      if(rect.y < y) rect.y = y;
+      if(rect.x + rect.w > x + w) rect.w = w;
+      if(rect.y + rect.h > y + h) rect.h = h;
+   }
+   else
+   {
+      rect.x = x;
+      rect.y = y;
+      rect.h = h;
+      rect.w = w;
+   }
+
+   ctx->clip.rects[ctx->clip.num] = rect;
+   ACS_SetHudClipRect(rect.x, rect.y, rect.w, rect.h);
 }
 
 //

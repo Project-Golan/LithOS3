@@ -131,11 +131,11 @@ void Lth_ContextClipPop(Lth_Context *ctx);
 void Lth_DrawRectAndClip(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha);
 void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha);
 
-void Lth_ControlRun(Lth_Context *ctx, void *control_);
-void Lth_ControlConnect(void *control_, Lth_Signal signal, Lth_Callback_t cb);
-void Lth_ControlDestroy(void *control_);
+void Lth_ControlRun(Lth_Context *ctx, void *ctrl_);
+void Lth_ControlConnect(void *ctrl_, Lth_Signal signal, Lth_Callback_t cb);
+void Lth_ControlDestroy(void *ctrl_);
 
 Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y);
-void Lth_WindowSetTitle(Lth_Window *control, char const *title);
+void Lth_WindowSetTitle(Lth_Window *ctrl, char const *title);
 
 #endif//lithos3__Lth_control_h
