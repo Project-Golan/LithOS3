@@ -19,10 +19,11 @@
 
 #if defined(Lth_X)
 
-Lth_X(SIGDESTROY, destroy, void, struct Lth_Control *)
-Lth_X(SIGCLICK  , click,   void, struct Lth_Control *)
-Lth_X(SIGDRAW   , draw,    void, struct Lth_Context *, struct Lth_Control *)
-Lth_X(SIGUPDATE , update,  void, struct Lth_Context *, struct Lth_Control *)
+Lth_X(SIGDESTROY, destroy,  void, struct Lth_Control *)
+Lth_X(SIGCLICK  , click,    void, struct Lth_Control *)
+Lth_X(SIGDRAW   , draw,     void, struct Lth_Context *, struct Lth_Control *)
+Lth_X(SIGPSTDRAW, postdraw, void, struct Lth_Context *, struct Lth_Control *)
+Lth_X(SIGUPDATE , update,   void, struct Lth_Context *, struct Lth_Control *)
 
 #undef Lth_X
 
