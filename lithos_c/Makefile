@@ -41,6 +41,7 @@ SOURCES= \
    $(SRC)/context.c \
    $(SRC)/control.c \
    $(SRC)/draw.c \
+   $(SRC)/font.c \
    $(SRC)/main.c \
    $(SRC)/stdlib.c \
    $(SRC)/window.c
@@ -53,6 +54,7 @@ HEADERS= \
    $(INC)/Lth_context.h \
    $(INC)/Lth_control.h \
    $(INC)/Lth_draw.h \
+   $(INC)/Lth_font.h \
    $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
    $(INC)/Lth_stdlib.h \

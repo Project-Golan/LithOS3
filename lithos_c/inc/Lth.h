@@ -19,6 +19,7 @@
 #include "Lth_context.h"
 #include "Lth_control.h"
 #include "Lth_draw.h"
+#include "Lth_font.h"
 #include "Lth_hudmessage.h"
 #include "Lth_linklist.h"
 #include "Lth_stdlib.h"
