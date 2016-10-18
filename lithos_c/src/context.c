@@ -59,10 +59,10 @@ void Lth_ContextMap(Lth_Context *ctx, Lth_Window *ctrl)
    Lth_assert(ctx != NULL);
    Lth_assert(ctrl != NULL);
 
-   if(ctrl->x == -1) ctrl->x = ctx->lastmap.x += 16;
+   if(ctrl->x == -1) ctrl->x = ctx->lastmap.x += ctx->mapspace.x;
    else              ctx->lastmap.x = ctrl->x;
 
-   if(ctrl->y == -1) ctrl->y = ctx->lastmap.y += 16;
+   if(ctrl->y == -1) ctrl->y = ctx->lastmap.y += ctx->mapspace.y;
    else              ctx->lastmap.y = ctrl->y;
 
    Lth_ContextSetup(ctx, ctrl);
