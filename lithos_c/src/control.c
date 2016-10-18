@@ -24,16 +24,16 @@
 //
 // Lth_ControlRun
 //
-void Lth_ControlRun(Lth_Context *ctx, void *ctrl_)
+void Lth_ControlRun(void *ctrl_)
 {
-   Lth_assert(ctx != NULL);
-   Lth_assert(ctrl_ != NULL);
-
    Lth_Control *ctrl = ctrl_;
 
-   Lth_ControlCall(ctrl, update,   ctx, ctrl);
-   Lth_ControlCall(ctrl, draw,     ctx, ctrl);
-   Lth_ControlCall(ctrl, postdraw, ctx, ctrl);
+   Lth_assert(ctrl != NULL);
+   Lth_assert(ctrl->ctx != NULL);
+
+   Lth_ControlCall(ctrl, update,   ctrl);
+   Lth_ControlCall(ctrl, draw,     ctrl);
+   Lth_ControlCall(ctrl, postdraw, ctrl);
 }
 
 //
@@ -75,7 +75,7 @@ void Lth_ControlDestroy(void *ctrl_)
    }
 
    Lth_CallReverse(ctrl->cb.destroy, ctrl);
-   Lth_LinkListRemove(&ctrl->desclink);
+   Lth_ListRemove(&ctrl->link);
 
 #define Lth_X(sig, name, ret, ...) \
    free(ctrl->cb.name.data);
@@ -84,5 +84,17 @@ void Lth_ControlDestroy(void *ctrl_)
    free(ctrl);
 }
 
+//
+// Lth_ControlAttach
+//
+void Lth_ControlAttach(void *ctrlsrc_, void *ctrldst_)
+{
+   Lth_assert(ctrlsrc_ != NULL);
+   Lth_assert(ctrldst_ != NULL);
+
+   Lth_Control *ctrlsrc = ctrlsrc_, *ctrldst = ctrldst_;
+   Lth_ListInsert(&ctrlsrc->link, ctrlsrc, &ctrldst->descendants);
+   ctrlsrc->ctx = ctrldst->ctx;
+}
 
 // EOF

@@ -31,10 +31,26 @@ Lth_Context *Lth_ContextNew(int w, int h, Lth_HID hidBase, Lth_HID hidEnd)
 
    ctx->w = w;
    ctx->h = h;
+   ctx->lastmap.x = ctx->lastmap.y = -1;
    ctx->hid.cur = ctx->hid.base = hidBase;
    ctx->hid.end = hidEnd;
+   ctx->mapspace.x = 24;
+   ctx->mapspace.y = 16;
 
    return ctx;
+}
+
+//
+// Lth_ContextSetup
+//
+void Lth_ContextSetup(Lth_Context *ctx, void *ctrl_)
+{
+   Lth_Control *ctrl = ctrl_;
+
+   Lth_ListForEach(Lth_Control *owner, ctrl->descendants)
+      Lth_ContextSetup(ctx, owner);
+
+   ctrl->ctx = ctx;
 }
 
 //
@@ -45,16 +61,14 @@ void Lth_ContextMap(Lth_Context *ctx, Lth_Window *ctrl)
    Lth_assert(ctx != NULL);
    Lth_assert(ctrl != NULL);
 
-   if(ctrl->x == -1) ctrl->x = ctx->w / 2;
-   if(ctrl->y == -1) ctrl->y = ctx->h / 2;
+   if(ctrl->x == -1) ctrl->x = ctx->lastmap.x += 16;
+   else              ctx->lastmap.x = ctrl->x;
 
-   if(ctx->map)
-      Lth_LinkListInsert(&ctrl->desclink, ctrl, &ctx->map);
-   else
-   {
-      ctx->map = &ctrl->desclink;
-      ctx->map->owner = ctrl;
-   }
+   if(ctrl->y == -1) ctrl->y = ctx->lastmap.y += 16;
+   else              ctx->lastmap.y = ctrl->y;
+
+   Lth_ContextSetup(ctx, ctrl);
+   Lth_ListInsertTail(&ctrl->link, ctrl, &ctx->map.head, &ctx->map.tail);
 }
 
 //
@@ -65,11 +79,11 @@ void Lth_ContextDestroy(Lth_Context *ctx)
    if(ctx == NULL)
       return;
 
-   if(ctx->map)
+   if(ctx->map.head)
    {
-      Lth_ListFor(Lth_Control *owner, ctx->map)
+      Lth_ListFor(Lth_Control *owner, ctx->map.head)
       {
-         Lth_LinkListRemove(list);
+         Lth_ListRemove(list);
          if(owner) Lth_ControlDestroy(owner);
          list = next;
       }
@@ -88,9 +102,9 @@ void Lth_ContextRun(Lth_Context *ctx)
    ACS_SetHudSize(ctx->w, ctx->h, true);
    ctx->hid.cur = ctx->hid.base;
 
-   if(ctx->map)
-      Lth_ListForEach(Lth_Control *owner, ctx->map)
-         Lth_ControlRun(ctx, owner);
+   if(ctx->map.head)
+      Lth_ListForEach(Lth_Control *owner, ctx->map.head)
+         Lth_ControlRun(owner);
 }
 
 //

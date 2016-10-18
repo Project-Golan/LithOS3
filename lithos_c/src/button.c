@@ -22,13 +22,15 @@
 //
 // Lth_ButtonDraw
 //
-static void Lth_ButtonDraw(Lth_Context *ctx, Lth_Button *ctrl)
+static void Lth_ButtonDraw(Lth_Button *ctrl)
 {
    ACS_SetFont(s"CONFONT");
+   ACS_BeginPrint();
    Lth_PrintString(ctrl->label);
-   Lth_HudMessagePlain(ctx->hid.cur--, ctrl->x - 8 + Lth_A_Lef,
-      ctrl->y - 8 + Lth_A_Top);
-   Lth_DrawRect(ctx, ctrl->x, ctrl->y, ctrl->w, ctrl->h, 0.5k);
+   Lth_HudMessagePlain(ctrl->ctx->hid.cur--,
+      ctrl->x - 8 + Lth_A_Cen,
+      ctrl->y - 8 + Lth_A_Cen);
+   Lth_DrawRect(ctrl->ctx, ctrl->x, ctrl->y, ctrl->w, ctrl->h, 0.5k);
 }
 
 //

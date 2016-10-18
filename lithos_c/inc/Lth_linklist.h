@@ -24,6 +24,24 @@
    for(Lth_LinkList *list = (lst); list;) \
       __with(Lth_LinkList *next = list->next, **prev = list->prev; \
          tmpv = list->owner;)
+#define Lth_ListInsert(list, object, head) \
+   (void) \
+   ( \
+      Lth_ListLink((list), (head)), \
+      (list)->owner = object \
+   )
+#define Lth_ListInsertTail(list, object, head, tail) \
+   (void) \
+   ( \
+      Lth_ListLinkTail((list), (head), (tail)), \
+      (list)->owner = object \
+   )
+#define Lth_ListMove(list, head) \
+   (void) \
+   ( \
+      Lth_ListRemove((list)), \
+      Lth_ListLink((list), (head)) \
+   )
 
 
 //----------------------------------------------------------------------------|
@@ -45,14 +63,12 @@ typedef struct Lth_LinkList
 //
 
 //
-// Lth_LinkListInsert
+// Lth_ListLink
 //
-static inline void Lth_LinkListInsert(Lth_LinkList *list, void *object,
-   Lth_LinkList **head)
+static inline void Lth_ListLink(Lth_LinkList *list, Lth_LinkList **head)
 {
    Lth_assert(list != NULL);
    Lth_assert(head != NULL);
-   Lth_assert(*head != NULL);
 
    Lth_LinkList *next = *head;
 
@@ -61,14 +77,33 @@ static inline void Lth_LinkListInsert(Lth_LinkList *list, void *object,
 
    list->prev = head;
    *head = list;
-
-   list->owner = object;
 }
 
 //
-// Lth_LinkListRemove
+// Lth_ListLinkTail
 //
-static inline void Lth_LinkListRemove(Lth_LinkList *list)
+static inline void Lth_ListLinkTail(Lth_LinkList *list, Lth_LinkList **head,
+   Lth_LinkList **tail)
+{
+   Lth_assert(list != NULL);
+   Lth_assert(head != NULL);
+   Lth_assert(tail != NULL);
+
+   Lth_LinkList *prev = *tail;
+
+   if(*(list->prev = head))
+      list->prev = &prev->next;
+   else
+      *head = list;
+
+   prev->next = list;
+   *tail = list;
+}
+
+//
+// Lth_ListRemove
+//
+static inline void Lth_ListRemove(Lth_LinkList *list)
 {
    Lth_assert(list != NULL);
 

@@ -23,6 +23,7 @@
 //
 // internal data
 //    clip
+//    lastmap
 //    map
 //
 // read-only
@@ -30,16 +31,19 @@
 //    h: height of screen
 //
 // read-write
-//    hid: HUD ID range
+//    hid:      HUD ID range
+//    mapspace: space between newly mapped windows that are auto-positioned
 //
 typedef struct Lth_Context
 {
    struct { Lth_Rect rects[16]; int num; } clip;
-   Lth_LinkList *map;
+   struct { int x, y; } lastmap;
+   struct { Lth_LinkList *head, *tail; } map;
 
    int w, h;
 
    Lth_HIDRange hid;
+   struct { int x, y; } mapspace;
 } Lth_Context;
 
 

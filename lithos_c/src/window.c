@@ -22,21 +22,25 @@
 //
 // Lth_WindowDraw
 //
-static void Lth_WindowDraw(Lth_Context *ctx, Lth_Window *ctrl)
+static void Lth_WindowDraw(Lth_Window *ctrl)
 {
-   ACS_SetFont(s"CONFONT");
+   Lth_DrawRectAndClip(ctrl->ctx, ctrl->x, ctrl->y - 8, ctrl->w, 8, 0.35k);
+   ACS_SetFont(s"SMALLFNT");
+   ACS_BeginPrint();
    Lth_PrintString(ctrl->title);
-   Lth_HudMessagePlain(ctx->hid.cur--, ctrl->x - 8 + Lth_A_Lef,
+   Lth_HudMessagePlain(ctrl->ctx->hid.cur--,
+      ctrl->x + Lth_A_Lef,
       ctrl->y - 8 + Lth_A_Top);
-   Lth_DrawRectAndClip(ctx, ctrl->x, ctrl->y, ctrl->w, ctrl->h, 0.5k);
+   Lth_ContextClipPop(ctrl->ctx);
+   Lth_DrawRectAndClip(ctrl->ctx, ctrl->x, ctrl->y, ctrl->w, ctrl->h, 0.5k);
 }
 
 //
 // Lth_WindowPostDraw
 //
-static void Lth_WindowPostDraw(Lth_Context *ctx, Lth_Window *ctrl)
+static void Lth_WindowPostDraw(Lth_Window *ctrl)
 {
-   Lth_ContextClipPop(ctx);
+   Lth_ContextClipPop(ctrl->ctx);
 }
 
 //
@@ -67,7 +71,7 @@ Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y)
    ctrl->y = y;
 
    Lth_WindowSetTitle(ctrl, title);
-   Lth_ControlConnect(ctrl, Lth_SIGDRAW, Lth_Callback(Lth_WindowDraw));
+   Lth_ControlConnect(ctrl, Lth_SIGDRAW,    Lth_Callback(Lth_WindowDraw));
    Lth_ControlConnect(ctrl, Lth_SIGPSTDRAW, Lth_Callback(Lth_WindowPostDraw));
    Lth_ControlConnect(ctrl, Lth_SIGDESTROY, Lth_Callback(Lth_WindowDestroy));
 
