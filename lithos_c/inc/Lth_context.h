@@ -35,13 +35,13 @@
 typedef struct Lth_Context
 {
    struct { Lth_Rect rects[16]; int num; } clip;
-   struct { int x, y; } lastmap;
    struct { Lth_LinkList *head, *tail; } map;
+   Lth_IVec2 lastmap;
 
    int w, h;
 
    Lth_HIDRange hid;
-   struct { int x, y; } mapspace;
+   Lth_IVec2    mapspace;
 } Lth_Context;
 
 

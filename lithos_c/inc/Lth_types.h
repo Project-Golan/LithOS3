@@ -42,6 +42,14 @@ typedef struct Lth_Rect
 } Lth_Rect;
 
 //
+// Lth_IVec2
+//
+typedef struct Lth_IVec2
+{
+   int x, y;
+} Lth_IVec2;
+
+//
 // Lth_HIDRange
 //
 // read-only
