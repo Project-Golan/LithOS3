@@ -16,9 +16,7 @@
 #include "Lth_control.h"
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 //
 // Lth_Window
@@ -35,9 +33,7 @@ typedef struct Lth_Window
 } Lth_Window;
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y);
 void Lth_WindowSetTitle(Lth_Window *ctrl, char const *title);

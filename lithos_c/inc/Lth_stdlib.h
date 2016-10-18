@@ -14,9 +14,7 @@
 #define lithos3__Lth_stdlib_h
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 char *Lth_strdup(char const *s);
 __str Lth_strdup_str(char const *s);

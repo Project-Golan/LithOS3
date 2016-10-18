@@ -16,9 +16,7 @@
 #include "Lth_control.h"
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 //
 // Lth_ButtonState
@@ -43,9 +41,7 @@ typedef struct Lth_Button
 } Lth_Button;
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 Lth_Button *Lth_ButtonNew(char const *label);
 void Lth_ButtonSetLabel(Lth_Button *ctrl, char const *title);

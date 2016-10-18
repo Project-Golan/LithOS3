@@ -53,9 +53,7 @@ static void Lth_WindowDestroy(Lth_Window *ctrl)
 }
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 //
 // Lth_WindowNew

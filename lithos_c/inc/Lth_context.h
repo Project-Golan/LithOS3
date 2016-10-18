@@ -14,9 +14,7 @@
 #define lithos3__Lth_context_h
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 //
 // Lth_Context
@@ -47,9 +45,7 @@ typedef struct Lth_Context
 } Lth_Context;
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 Lth_Context *Lth_ContextNew(int w, int h, Lth_HID hidBase, Lth_HID hidEnd);
 void Lth_ContextMap(Lth_Context *ctx, struct Lth_Window *window);

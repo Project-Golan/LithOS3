@@ -17,9 +17,7 @@
 #define Lth_Mixin(name) [[__anonymous]] name _##name
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 typedef int Lth_HID;
 

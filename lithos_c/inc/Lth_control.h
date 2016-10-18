@@ -20,9 +20,7 @@
 #include "Lth_font.h"
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 //
 // Lth_Control
@@ -72,9 +70,7 @@ typedef struct Lth_LayoutControl
 } Lth_LayoutControl;
 
 
-//----------------------------------------------------------------------------|
-// Extern Functions                                                           |
-//
+// Extern Functions ----------------------------------------------------------|
 
 Lth_Font *Lth_ControlFont(void *ctrl_);
 void Lth_ControlRun(void *ctrl_);

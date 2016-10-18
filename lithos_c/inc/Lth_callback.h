@@ -54,9 +54,7 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
    Lth_Call(ctrl->cb.name, __VA_ARGS__)
 
 
-//----------------------------------------------------------------------------|
-// Type Definitions                                                           |
-//
+// Type Definitions ----------------------------------------------------------|
 
 struct Lth_Control;
 
