@@ -36,6 +36,20 @@ char *Lth_strdup(char const *s)
 }
 
 //
+// Lth_strdup_str
+//
+// Duplicates a string into a new string entity.
+//
+__str Lth_strdup_str(char const *s)
+{
+   Lth_assert(s != NULL);
+   size_t len = strlen(s);
+   ACS_BeginPrint();
+   Lth_PrintString(s);
+   return ACS_EndStrParam();
+}
+
+//
 // Lth_PrintString
 //
 // Print a C string into the ACS print buffer.

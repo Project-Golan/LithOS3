@@ -19,6 +19,7 @@
 //
 
 char *Lth_strdup(char const *s);
+__str Lth_strdup_str(char const *s);
 void Lth_PrintString(char const *s);
 
 #endif//lithos3__Lth_stdlib_h
