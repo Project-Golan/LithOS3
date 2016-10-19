@@ -30,6 +30,8 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
 #elif !defined(lithos3__Lth_callback_h)
 #define lithos3__Lth_callback_h
 
+#include "Lth_types.h"
+
 #define Lth_Callback(name) ((Lth_Callback_t)(name))
 #define Lth_Call(name, ...) \
    do \
@@ -70,7 +72,7 @@ typedef void (*Lth_Callback_t)(void);
 typedef struct Lth_CallbackSet
 {
 #define Lth_X(sig, name, ret, ...) \
-   struct { Lth_##sig##_t *data; size_t size; } name;
+   Lth_Vector(Lth_##sig##_t) name;
 #include "Lth_callback.h"
 } Lth_CallbackSet;
 
