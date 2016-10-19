@@ -35,7 +35,7 @@ enum Lth_ButtonState
 //
 typedef struct Lth_Button
 {
-   Lth_Inherits(Lth_LayoutControl);
+   Lth_Inherits(Lth_Control);
    char *label;
    int state;
 } Lth_Button;

@@ -56,19 +56,6 @@ typedef struct Lth_Control
    Lth_Mixin(Lth_Rect);
 } Lth_Control;
 
-//
-// Lth_LayoutControl
-//
-// read-only
-//    lx: layout x
-//    ly: layout y
-//
-typedef struct Lth_LayoutControl
-{
-   Lth_Inherits(Lth_Control);
-   int lx, ly;
-} Lth_LayoutControl;
-
 
 // Extern Functions ----------------------------------------------------------|
 

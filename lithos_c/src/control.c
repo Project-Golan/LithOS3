@@ -20,6 +20,27 @@
 // Extern Functions ----------------------------------------------------------|
 
 //
+// Lth_ControlFont
+//
+Lth_Font *Lth_ControlFont(void *ctrl_)
+{
+   Lth_Control *ctrl = ctrl_;
+
+   if(ctrl->font)
+      return ctrl->font;
+   else
+   {
+      for(Lth_Control *p = ctrl->parent; p; p = p->parent)
+      {
+         if(p->font)
+            return p->font;
+      }
+   }
+
+   return ctrl->ctx->font;
+}
+
+//
 // Lth_ControlRun
 //
 void Lth_ControlRun(void *ctrl_)
@@ -27,7 +48,6 @@ void Lth_ControlRun(void *ctrl_)
    Lth_Control *ctrl = ctrl_;
 
    Lth_assert(ctrl != NULL);
-   Lth_assert(ctrl->ctx != NULL);
 
    Lth_ControlCall(ctrl, update,   ctrl);
    Lth_ControlCall(ctrl, draw,     ctrl);
