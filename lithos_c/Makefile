@@ -55,6 +55,7 @@ HEADERS= \
    $(INC)/Lth_control.h \
    $(INC)/Lth_draw.h \
    $(INC)/Lth_font.h \
+   $(INC)/Lth_hashmap.h \
    $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
    $(INC)/Lth_stdlib.h \
