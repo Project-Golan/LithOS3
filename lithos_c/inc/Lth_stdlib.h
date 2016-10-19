@@ -16,8 +16,13 @@
 
 // Extern Functions ----------------------------------------------------------|
 
+// str
 char *Lth_strdup(char const *s);
-__str Lth_strdup_str(char const *s);
+char *Lth_strdup_str(__str s);
+__str Lth_strentdup(char const *s);
+__str Lth_strlocal(__str s);
+
+// Print
 void Lth_PrintString(char const *s);
 
 #endif//lithos3__Lth_stdlib_h

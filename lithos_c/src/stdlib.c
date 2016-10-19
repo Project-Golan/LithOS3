@@ -36,14 +36,39 @@ char *Lth_strdup(char const *s)
 //
 // Lth_strdup_str
 //
+// Duplicates a string entity, allocating a new string.
+//
+char *Lth_strdup_str(__str s)
+{
+   Lth_assert(s != NULL);
+   size_t len = ACS_StrLen(s);
+   char *ret = calloc(len + 1, 1);
+   Lth_assert(ret != NULL);
+   for(size_t i = 0; i < len; i++) ret[i] = s[i];
+   return ret;
+}
+
+//
+// Lth_strentdup
+//
 // Duplicates a string into a new string entity.
 //
-__str Lth_strdup_str(char const *s)
+__str Lth_strentdup(char const *s)
 {
    Lth_assert(s != NULL);
    size_t len = strlen(s);
    ACS_BeginPrint();
    Lth_PrintString(s);
+   return ACS_EndStrParam();
+}
+
+//
+// Lth_strlocal
+//
+__str Lth_strlocal(__str s)
+{
+   ACS_BeginPrint();
+   ACS_PrintLocalized(s);
    return ACS_EndStrParam();
 }
 

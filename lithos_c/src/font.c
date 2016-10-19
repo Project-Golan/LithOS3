@@ -27,7 +27,7 @@ Lth_Font *Lth_FontNew(char const *name)
    Lth_Font *font = calloc(1, sizeof(Lth_Font));
    Lth_assert(font != NULL);
 
-   font->name = Lth_strdup_str(name);
+   font->name = Lth_strentdup(name);
 
    return font;
 }
