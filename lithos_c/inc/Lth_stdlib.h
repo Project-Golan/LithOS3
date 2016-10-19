@@ -25,4 +25,7 @@ __str Lth_strlocal(__str s);
 // Print
 void Lth_PrintString(char const *s);
 
+// Hash
+size_t Lth_Hash_char(char const *s);
+
 #endif//lithos3__Lth_stdlib_h

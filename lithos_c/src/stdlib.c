@@ -83,4 +83,19 @@ void Lth_PrintString(char const *s)
    for(char const *p = s; *p;) ACS_PrintChar(*p++);
 }
 
+//
+// Lth_Hash_char
+//
+size_t Lth_Hash_char(char const *s)
+{
+   if(s == NULL) return 0;
+
+   size_t ret = 0;
+
+   while(*s)
+      ret = ret * 101 + (unsigned char)(*s++);
+
+   return ret;
+}
+
 // EOF
