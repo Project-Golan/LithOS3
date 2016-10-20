@@ -19,7 +19,7 @@
 // Lth_DrawRectAndClip
 //
 void Lth_DrawRectAndClip(Lth_Context *ctx, int x, int y, int w, int h,
-   __fixed alpha)
+   _Accum alpha)
 {
    Lth_assert(ctx != NULL);
 
@@ -34,7 +34,7 @@ void Lth_DrawRectAndClip(Lth_Context *ctx, int x, int y, int w, int h,
 //
 // Lth_DrawRect
 //
-void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, __fixed alpha)
+void Lth_DrawRect(Lth_Context *ctx, int x, int y, int w, int h, _Accum alpha)
 {
    Lth_DrawRectAndClip(ctx, x, y, w, h, alpha);
    Lth_ContextClipPop(ctx);

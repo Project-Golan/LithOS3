@@ -39,7 +39,7 @@
 typedef struct Lth_Context
 {
    struct { Lth_Rect rects[16]; int num; } clip;
-   struct { Lth_LinkList *head, *tail; } map;
+   struct { Lth_LinkList *head, *tail; }   map;
    Lth_IVec2 lastmap;
 
    int w, h;

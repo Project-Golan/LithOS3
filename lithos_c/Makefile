@@ -44,6 +44,8 @@ SOURCES= \
    $(SRC)/font.c \
    $(SRC)/main.c \
    $(SRC)/stdlib.c \
+   $(SRC)/token.c \
+   $(SRC)/tokenstream.c \
    $(SRC)/window.c
 
 HEADERS= \
@@ -59,6 +61,8 @@ HEADERS= \
    $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
    $(INC)/Lth_stdlib.h \
+   $(INC)/Lth_token.h \
+   $(INC)/Lth_tokenstream.h \
    $(INC)/Lth_types.h \
    $(INC)/Lth_window.h
 
