@@ -42,7 +42,6 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
 
    switch(ch)
    {
-   case '.':  Lth_TokenSet(out, Dot   ); return;
    case '=':  Lth_TokenSet(out, Equals); return;
    case ';':  Lth_TokenSet(out, Semico); return;
 
@@ -50,6 +49,11 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
    case ']':  Lth_TokenSet(out, BrackC); return;
 
    case '\n': Lth_TokenSet(out, LnEnd ); return;
+
+   case '.':
+      if(isdigit(Lth_fpeekc(fp))) break;
+      Lth_TokenSet(out, Dot);
+      return;
    }
 
    if(isspace(ch))
