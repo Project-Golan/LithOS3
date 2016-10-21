@@ -45,15 +45,20 @@
    }
 
 #define GenValueGetter(name, value, setexpr) \
-   if(repr->manifest.size + 1 > repr->manifest.bufsz) \
-      repr->manifest.data = realloc(repr->manifest.data, \
-         sizeof(Lth_Manifest) * (repr->manifest.bufsz += 32)); \
-   \
-   repr->manifest.data[repr->manifest.size++] = (Lth_Manifest){ \
-      .type    = Lth_ResourceType_##name, \
-      .keyhash = key, \
-      .value   = (setexpr) \
-   }
+   if(1) \
+   { \
+      if(repr->manifest.size + 1 > repr->manifest.bufsz) \
+         repr->manifest.data = realloc(repr->manifest.data, \
+            sizeof(Lth_Manifest) * (repr->manifest.bufsz += 32)); \
+      \
+      repr->manifest.data[repr->manifest.size++] = (Lth_Manifest){ \
+         .type    = Lth_ResourceType_##name, \
+         .keyhash = key, \
+         .value   = (setexpr) \
+      }; \
+   } \
+   else \
+      ((void)0)
 
 #define ManifestError(repr, str) \
    if(1) \
@@ -176,6 +181,10 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
    case Lth_TOK_String:
       ManifestGetStrng(repr, key, Lth_TokenStreamBump(repr->stream)->str);
       break;
+   case Lth_TOK_Identi:
+      __with(char const *str = Lth_TokenStreamBump(repr->stream)->str;)
+               if(strcmp(str, "true") == 0) GenValueGetter(Integ, integ, 1);
+         else if(strcmp(str, "false") == 0) GenValueGetter(Integ, integ, 0);
    default:
       ManifestError(repr, "expected initializer");
       break;
@@ -187,16 +196,21 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
 //
 static void ManifestGetDecl_Object(ManifestState *repr)
 {
-   // obj-decl-terminator:
+   // object-name:
+   //    identifier
+   //    string-constant
+
+   // object-decl-terminator:
    //    '\n'
    //    ;
 
    // object-declaration:
-   //    identifier = initializer obj-decl-terminator
+   //    object-name = initializer object-decl-terminator
 
    // identifier
-   if(Lth_TokenStreamPeek(repr->stream)->type != Lth_TOK_Identi)
-      ManifestError(repr, "exptected declarator");
+   if(Lth_TokenStreamPeek(repr->stream)->type != Lth_TOK_String &&
+      Lth_TokenStreamPeek(repr->stream)->type != Lth_TOK_Identi)
+      ManifestError(repr, "exptected object-name");
 
    // Build the key name. Format is: "blockname.identifier"
    __with(char const *name = Lth_TokenStreamBump(repr->stream)->str;)
@@ -219,7 +233,7 @@ static void ManifestGetDecl_Object(ManifestState *repr)
    // initializer
    ManifestGetInitializer(repr, key);
 
-   // obj-decl-terminator
+   // object-decl-terminator
    if(!Lth_TokenStreamDrop(repr->stream, Lth_TOK_LnEnd) &&
       !Lth_TokenStreamDrop(repr->stream, Lth_TOK_Semico))
       ManifestError(repr, "expected newline or ';'");
