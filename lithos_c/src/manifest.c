@@ -183,7 +183,7 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
       break;
    case Lth_TOK_Identi:
       __with(char const *str = Lth_TokenStreamBump(repr->stream)->str;)
-               if(strcmp(str, "true") == 0) GenValueGetter(Integ, integ, 1);
+              if(strcmp(str, "true") == 0) GenValueGetter(Integ, integ, 1);
          else if(strcmp(str, "false") == 0) GenValueGetter(Integ, integ, 0);
    default:
       ManifestError(repr, "expected initializer");

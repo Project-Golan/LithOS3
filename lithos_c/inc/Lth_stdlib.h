@@ -43,6 +43,6 @@ void Lth_PrintString(char const *s);
 
 // Hash
 size_t Lth_Hash_char(char const *s);
-size_t Lth_Hash_str(__str s);
+size_t Lth_Hash_str(char __str_ars const *s);
 
 #endif//lithos3__Lth_stdlib_h

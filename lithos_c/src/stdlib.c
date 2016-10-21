@@ -17,6 +17,16 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define GenStrHash() \
+   if(s == NULL) return 0; \
+   \
+   size_t ret = 0; \
+   \
+   while(*s) \
+      ret = ret * 101 + ((unsigned char)(*s++) & 0xff); \
+   \
+   return ret
+
 
 // Extern Functions ----------------------------------------------------------|
 
@@ -132,30 +142,15 @@ void Lth_PrintString(char const *s)
 //
 size_t Lth_Hash_char(char const *s)
 {
-   if(s == NULL) return 0;
-
-   size_t ret = 0;
-
-   while(*s)
-      ret = ret * 101 + (unsigned char)(*s++);
-
-   return ret;
+   GenStrHash();
 }
 
 //
 // Lth_Hash_str
 //
-size_t Lth_Hash_str(__str s)
+size_t Lth_Hash_str(char __str_ars const *s)
 {
-   if(s == NULL) return 0;
-
-   size_t ret = 0;
-   size_t len = ACS_StrLen(s);
-
-   for(size_t i = 0; i < len; i++)
-      ret = ret * 101 + (unsigned char)(s[i]);
-
-   return ret;
+   GenStrHash();
 }
 
 // EOF
