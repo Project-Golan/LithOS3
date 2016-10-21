@@ -31,7 +31,6 @@
 // read-write
 //    skipeol:    Skip line end tokens.
 //    skipspc:    Skip whitespace tokens.
-//    scriptcall: Calls Lth_TokenGet via a script to reduce instructions. Slow.
 //
 typedef struct Lth_TokenStream
 {
@@ -41,7 +40,6 @@ typedef struct Lth_TokenStream
 
    bool skipeol;
    bool skipspc;
-   bool scriptcall;
 } Lth_TokenStream;
 
 

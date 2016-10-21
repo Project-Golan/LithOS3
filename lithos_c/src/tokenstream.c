@@ -134,25 +134,13 @@ static FILE *Lth_TokenFileStreamOpen(void *data, size_t size)
 }
 
 //
-// Lth_TokenGet_Script
-//
-Lth_ScriptCall static void Lth_TokenGet_Script(FILE *fp, Lth_Token *out)
-{
-   Lth_TokenGet(fp, out);
-}
-
-//
 // Lth_TokenStreamGrab
 //
 static void Lth_TokenStreamGrab(Lth_TokenStream *stream)
 {
    if(feof(stream->fp)) return;
 
-   bool scriptcall = stream->scriptcall;
-
-   do
-      if(!scriptcall) Lth_TokenGet(stream->fp, &stream->tokbuf);
-      else            Lth_TokenGet_Script(stream->fp, &stream->tokbuf);
+   do Lth_TokenGet(stream->fp, &stream->tokbuf);
    while((stream->skipspc && stream->tokbuf.type == Lth_TOK_Space) ||
          (stream->skipeol && stream->tokbuf.type == Lth_TOK_LnEnd));
 
