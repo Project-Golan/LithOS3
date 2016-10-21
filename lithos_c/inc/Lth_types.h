@@ -18,9 +18,11 @@
 #define Lth_Inherits(name) [[__anonymous]] name _super
 #define Lth_Mixin(name) [[__anonymous]] name _##name
 
-#define Lth_Vector(type) struct { type *data; size_t size; }
-#define Lth_VectorForEach(tmpv, vec) \
-   for(tmpv = (vec).data; tmpv != (vec).data + (vec).size; tmpv++)
+#define Lth_Vector(type) struct { type *data; size_t size, bufsz; }
+#define Lth_VectorForEach(type, vec) \
+   for(type itr = (vec).data; itr != (vec).data + (vec).size; itr++)
+
+#define Lth_Pair(typef, types) struct { typef first; types second; }
 
 
 // Type Definitions ----------------------------------------------------------|
