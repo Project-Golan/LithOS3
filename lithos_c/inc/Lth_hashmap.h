@@ -108,12 +108,9 @@ static inline void Lth_HashMapBuild(Lth_HashMap *map)
 //
 // Lth_HashMapFindItr
 //
-static inline Lth_HashMapElem *Lth_HashFindItr(Lth_HashMap *map,
-   char const *key)
+static inline Lth_HashMapElem *Lth_HashFindItr(Lth_HashMap *map, size_t hash)
 {
    if(map->table == NULL) return NULL;
-
-   size_t hash = Lth_Hash_char(key);
 
    for(Lth_HashMapElem *elem = map->table[hash % map->elem.size]; elem;
       elem = elem->next)
@@ -130,7 +127,7 @@ static inline Lth_HashMapElem *Lth_HashFindItr(Lth_HashMap *map,
 //
 static inline void *Lth_HashMapFind(Lth_HashMap *map, char const *key)
 {
-   Lth_HashMapElem *elem = Lth_HashFindItr(map, key);
+   Lth_HashMapElem *elem = Lth_HashFindItr(map, Lth_Hash_char(key));
    if(elem == NULL) return NULL;
    return elem->value;
 }
