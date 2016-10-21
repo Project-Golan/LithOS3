@@ -20,7 +20,7 @@
 #else
 #define Lth_assert(expression) \
    if(!(expression)) \
-      printf("[lithos3] Assertion failed in %s (%s:%i): %s\n", \
+      fprintf(stderr, "[lithos3] Assertion failed in %s (%s:%i): %s\n", \
          __func__, __FILE__, __LINE__, #expression); \
    else \
       ((void)0)
