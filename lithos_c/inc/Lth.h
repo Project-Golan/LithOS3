@@ -22,6 +22,7 @@
 #include "Lth_font.h"
 #include "Lth_hudmessage.h"
 #include "Lth_linklist.h"
+#include "Lth_manifest.h"
 #include "Lth_stdlib.h"
 #include "Lth_token.h"
 #include "Lth_tokenstream.h"

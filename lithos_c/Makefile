@@ -43,6 +43,7 @@ SOURCES= \
    $(SRC)/draw.c \
    $(SRC)/font.c \
    $(SRC)/main.c \
+   $(SRC)/manifest.c \
    $(SRC)/stdlib.c \
    $(SRC)/token.c \
    $(SRC)/tokenstream.c \
@@ -60,6 +61,7 @@ HEADERS= \
    $(INC)/Lth_hashmap.h \
    $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
+   $(INC)/Lth_manifest.h \
    $(INC)/Lth_stdlib.h \
    $(INC)/Lth_token.h \
    $(INC)/Lth_tokenstream.h \

@@ -17,6 +17,22 @@
 #include <stdbool.h>
 
 
+// Static Functions ----------------------------------------------------------|
+
+//
+// Lth_ContextSetup
+//
+static void Lth_ContextSetup(Lth_Context *ctx, void *ctrl_)
+{
+   Lth_Control *ctrl = ctrl_;
+
+   Lth_ListForEach(Lth_Control *owner, ctrl->descendants)
+      Lth_ContextSetup(ctx, owner);
+
+   ctrl->ctx = ctx;
+}
+
+
 // Extern Functions ----------------------------------------------------------|
 
 //
@@ -35,20 +51,53 @@ Lth_Context *Lth_ContextNew(int w, int h, Lth_HID hidBase, Lth_HID hidEnd)
    ctx->mapspace.x = 24;
    ctx->mapspace.y = 16;
 
+   ctx->rsrcBase = Lth_ManifestLoad_static(Lth_ManifestNew(
+      Lth_Resource("Base.Resource1", 999)
+   ));
+
    return ctx;
 }
 
 //
-// Lth_ContextSetup
+// Lth_ContextDestroy
 //
-void Lth_ContextSetup(Lth_Context *ctx, void *ctrl_)
+void Lth_ContextDestroy(Lth_Context *ctx)
 {
-   Lth_Control *ctrl = ctrl_;
+   if(ctx == NULL)
+      return;
 
-   Lth_ListForEach(Lth_Control *owner, ctrl->descendants)
-      Lth_ContextSetup(ctx, owner);
+   if(ctx->map.head)
+   {
+      Lth_ListFor(Lth_Control *owner, ctx->map.head)
+      {
+         Lth_ListRemove(list);
+         if(owner) Lth_ControlDestroy(owner);
+         list = next;
+      }
+   }
 
-   ctrl->ctx = ctx;
+   Lth_ResourceMapDestroy(ctx->rsrc);
+   Lth_ResourceMapDestroy(ctx->rsrcBase);
+
+   free(ctx->rsrc);
+   free(ctx->rsrcBase);
+
+   free(ctx);
+}
+
+//
+// Lth_ContextRun
+//
+void Lth_ContextRun(Lth_Context *ctx)
+{
+   Lth_assert(ctx != NULL);
+
+   ACS_SetHudSize(ctx->w, ctx->h, true);
+   ctx->hid.cur = ctx->hid.base;
+
+   if(ctx->map.head)
+      Lth_ListForEach(Lth_Control *owner, ctx->map.head)
+         Lth_ControlRun(owner);
 }
 
 //
@@ -70,42 +119,6 @@ void Lth_ContextMap(Lth_Context *ctx, Lth_Window *ctrl)
 }
 
 //
-// Lth_ContextDestroy
-//
-void Lth_ContextDestroy(Lth_Context *ctx)
-{
-   if(ctx == NULL)
-      return;
-
-   if(ctx->map.head)
-   {
-      Lth_ListFor(Lth_Control *owner, ctx->map.head)
-      {
-         Lth_ListRemove(list);
-         if(owner) Lth_ControlDestroy(owner);
-         list = next;
-      }
-   }
-
-   free(ctx);
-}
-
-//
-// Lth_ContextRun
-//
-void Lth_ContextRun(Lth_Context *ctx)
-{
-   Lth_assert(ctx != NULL);
-
-   ACS_SetHudSize(ctx->w, ctx->h, true);
-   ctx->hid.cur = ctx->hid.base;
-
-   if(ctx->map.head)
-      Lth_ListForEach(Lth_Control *owner, ctx->map.head)
-         Lth_ControlRun(owner);
-}
-
-//
 // Lth_ContextClipPush
 //
 void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h)
@@ -116,18 +129,13 @@ void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h)
 
    if(!(rect.x == 0 && rect.y == 0 && rect.w == 0 && rect.h == 0))
    {
-      if(rect.x < x) rect.x = x;
-      if(rect.y < y) rect.y = y;
+      if(rect.x < x)              rect.x = x;
+      if(rect.y < y)              rect.y = y;
       if(rect.x + rect.w > x + w) rect.w = w;
       if(rect.y + rect.h > y + h) rect.h = h;
    }
    else
-   {
-      rect.x = x;
-      rect.y = y;
-      rect.h = h;
-      rect.w = w;
-   }
+      rect = (Lth_Rect){ x, y, w, h };
 
    ctx->clip.rects[ctx->clip.num] = rect;
    ACS_SetHudClipRect(rect.x, rect.y, rect.w, rect.h);
@@ -142,6 +150,16 @@ void Lth_ContextClipPop(Lth_Context *ctx)
 
    Lth_Rect rect = ctx->clip.rects[--ctx->clip.num];
    ACS_SetHudClipRect(rect.x, rect.y, rect.w, rect.h);
+}
+
+//
+// Lth_ContextResourceFind
+//
+void *Lth_ContextResourceFind(Lth_Context *ctx, char const *key)
+{
+   void *p = Lth_HashMapFind(&ctx->rsrc->map, key);
+   if(p) return p;
+   else  return Lth_HashMapFind(&ctx->rsrcBase->map, key);
 }
 
 // EOF
