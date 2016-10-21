@@ -58,7 +58,7 @@ static void Lth_WindowDestroy(Lth_Window *ctrl)
 //
 // Lth_WindowNew
 //
-Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y)
+Lth_Window *Lth_WindowNew(char const *title, int x, int y, int w, int h)
 {
    Lth_Window *ctrl = calloc(1, sizeof(Lth_Window));
    Lth_assert(ctrl != NULL);

@@ -35,7 +35,8 @@ typedef struct Lth_Window
 
 // Extern Functions ----------------------------------------------------------|
 
-Lth_Window *Lth_WindowNew(char const *title, int w, int h, int x, int y);
+[[__optional_args(2)]]
+Lth_Window *Lth_WindowNew(char const *title, int x, int y, int w, int h);
 void Lth_WindowSetTitle(Lth_Window *ctrl, char const *title);
 
 #endif//lithos3__Lth_window_h
