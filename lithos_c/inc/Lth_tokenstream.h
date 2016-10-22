@@ -13,10 +13,6 @@
 #ifndef lithos3__Lth_tokenstream_h
 #define lithos3__Lth_tokenstream_h
 
-#include "Lth_token.h"
-
-#include <stdbool.h>
-
 
 // Type Definitions ----------------------------------------------------------|
 

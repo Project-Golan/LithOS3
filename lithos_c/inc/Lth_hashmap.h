@@ -16,11 +16,6 @@
 #ifndef lithos3__Lth_hashmap_h
 #define lithos3__Lth_hashmap_h
 
-#include "Lth_assert.h"
-#include "Lth_stdlib.h"
-
-#include <stdlib.h>
-
 
 // Type Definitions ----------------------------------------------------------|
 

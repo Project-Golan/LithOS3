@@ -13,8 +13,6 @@
 #ifndef lithos3__Lth_assert_h
 #define lithos3__Lth_assert_h
 
-#include <stdio.h>
-
 #ifdef NDEBUG
 #define Lth_assert(expression) ((void)0)
 #else

@@ -13,13 +13,6 @@
 #ifndef lithos3__Lth_context_h
 #define lithos3__Lth_context_h
 
-#include "Lth_types.h"
-#include "Lth_font.h"
-#include "Lth_manifest.h"
-
-#define Lth_ContextResource(ctx, type, key) \
-   ((type *)Lth_ContextResourceFind((ctx), (key)))
-
 #define Lth_ContextManifestLoad_extern(ctx, ...) \
    ( \
       ((ctx)->rsrc ? (Lth_ResourceMapDestroy((ctx)->rsrc)) : (void)0), \
@@ -80,6 +73,6 @@ void Lth_ContextMap(Lth_Context *ctx, struct Lth_Window *window);
 void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h);
 void Lth_ContextClipPop(Lth_Context *ctx);
 
-void *Lth_ContextResourceFind(Lth_Context *ctx, char const *key);
+void *Lth_ContextResource(Lth_Context *ctx, char const *key);
 
 #endif//lithos3__Lth_context_h

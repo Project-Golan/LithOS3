@@ -61,14 +61,14 @@ Lth_Button *Lth_ButtonNew(char const *label)
 //
 // Lth_ButtonSetLabel
 //
-void Lth_ButtonSetLabel(Lth_Button *ctrl, char const *title)
+void Lth_ButtonSetLabel(Lth_Button *ctrl, char const *label)
 {
    Lth_assert(ctrl != NULL);
 
-   if(title != NULL)
-      ctrl->label = Lth_strdup(title);
+   if(label != NULL)
+      ctrl->label = Lth_strdup(label);
    else
-      ctrl->label = Lth_strdup("");
+      ctrl->label = Lth_strdup("Button");
 }
 
 // EOF

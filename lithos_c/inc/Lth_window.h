@@ -13,8 +13,6 @@
 #ifndef lithos3__Lth_window_h
 #define lithos3__Lth_window_h
 
-#include "Lth_control.h"
-
 
 // Type Definitions ----------------------------------------------------------|
 

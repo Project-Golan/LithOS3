@@ -13,12 +13,8 @@
 #ifndef lithos3__Lth_stdlib_h
 #define lithos3__Lth_stdlib_h
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#define Lth_isidenti(ch) \
-   (isalpha(ch) || isdigit(ch) || ch == '_' || ch == '$' || ch == '\'' || \
-      ch >= 0x80)
+#define Lth_isidenti(c) \
+   (isalnum(c) || c == '_' || c == '$' || c == '\'' || c > 0x80)
 
 // Post-for. Sort of.
 #define Lth_pfor(cond, expr) while((cond) && ((expr), true))

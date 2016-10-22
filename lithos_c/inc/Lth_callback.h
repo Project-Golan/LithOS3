@@ -30,8 +30,6 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
 #elif !defined(lithos3__Lth_callback_h)
 #define lithos3__Lth_callback_h
 
-#include "Lth_types.h"
-
 #define Lth_Callback(name) ((Lth_Callback_t)(name))
 #define Lth_Call(name, ...) \
    do \

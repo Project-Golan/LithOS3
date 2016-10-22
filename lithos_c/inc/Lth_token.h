@@ -36,8 +36,6 @@ Lth_X(LnEnd ) // \n
 #elif !defined(lithos3__Lth_token_h)
 #define lithos3__Lth_token_h
 
-#include <stdio.h>
-
 #define Lth_TokenSet(out, tok) \
    ((out)->str = NULL, (out)->type = Lth_TOK_##tok)
 

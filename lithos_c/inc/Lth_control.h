@@ -13,11 +13,6 @@
 #ifndef lithos3__Lth_control_h
 #define lithos3__Lth_control_h
 
-#include "Lth_callback.h"
-#include "Lth_linklist.h"
-#include "Lth_types.h"
-#include "Lth_context.h"
-#include "Lth_font.h"
 
 
 // Type Definitions ----------------------------------------------------------|

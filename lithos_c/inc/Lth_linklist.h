@@ -13,10 +13,6 @@
 #ifndef lithos3__Lth_linklist_h
 #define lithos3__Lth_linklist_h
 
-#include "Lth_assert.h"
-
-#include <stddef.h>
-
 #define Lth_ListForEach(tmpv, lst) \
    for(Lth_LinkList *list = (lst); list; list = list->next) \
       __with(tmpv = list->owner;)

@@ -13,8 +13,6 @@
 #ifndef lithos3__Lth_button_h
 #define lithos3__Lth_button_h
 
-#include "Lth_control.h"
-
 
 // Type Definitions ----------------------------------------------------------|
 
@@ -44,6 +42,6 @@ typedef struct Lth_Button
 // Extern Functions ----------------------------------------------------------|
 
 Lth_Button *Lth_ButtonNew(char const *label);
-void Lth_ButtonSetLabel(Lth_Button *ctrl, char const *title);
+void Lth_ButtonSetLabel(Lth_Button *ctrl, char const *label);
 
 #endif//lithos3__Lth_button_h

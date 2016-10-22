@@ -13,10 +13,6 @@
 #ifndef lithos3__Lth_hudmessage_h
 #define lithos3__Lth_hudmessage_h
 
-#include <ACS_ZDoom.h>
-#include <stdio.h>
-#include <stdarg.h>
-
 #define Lth_HudMessageFont(font, ...) \
    ( \
       ACS_SetFont(font), \
@@ -93,13 +89,13 @@
 static inline void Lth_HudMessage(char const *fmt, ...)
 {
    va_list vl;
-   
+
    ACS_BeginPrint();
-   
+
    va_start(vl, fmt);
    __vnprintf(fmt, vl);
    va_end(vl);
-   
+
    ACS_MoreHudMessage();
 }
 

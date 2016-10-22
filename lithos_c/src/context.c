@@ -153,9 +153,9 @@ void Lth_ContextClipPop(Lth_Context *ctx)
 }
 
 //
-// Lth_ContextResourceFind
+// Lth_ContextResource
 //
-void *Lth_ContextResourceFind(Lth_Context *ctx, char const *key)
+void *Lth_ContextResource(Lth_Context *ctx, char const *key)
 {
    void *p = Lth_HashMapFind(&ctx->rsrc->map, key);
    if(p) return p;

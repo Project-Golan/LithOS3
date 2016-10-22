@@ -13,9 +13,6 @@
 #ifndef lithos3__Lth_manifest_h
 #define lithos3__Lth_manifest_h
 
-#include "Lth_hashmap.h"
-#include "Lth_types.h"
-
 #define Lth_ManifestNew(...) \
    ((Lth_Manifest[]){ \
       __VA_ARGS__, \
