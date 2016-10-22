@@ -79,9 +79,6 @@ void Lth_ContextDestroy(Lth_Context *ctx)
    Lth_ResourceMapDestroy(ctx->rsrc);
    Lth_ResourceMapDestroy(ctx->rsrcBase);
 
-   free(ctx->rsrc);
-   free(ctx->rsrcBase);
-
    free(ctx);
 }
 
