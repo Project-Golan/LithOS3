@@ -27,15 +27,12 @@
    \
    size_t iter##name = 0
 
-#define GenSpecCase(name, var, i, expr) \
+#define GenRsrcCase(name, var, i) \
    case Lth_ResourceType_##name: \
       rsrc->vec##name.data[iter##name] = iter->var; \
       rsrc->map.elem.data[i  ].keyhash = iter->keyhash; \
-      rsrc->map.elem.data[i++].value   = expr; \
+      rsrc->map.elem.data[i++].value   = &rsrc->vec##name.data[iter##name++]; \
       break
-
-#define GenRsrcCase(name, var, i) \
-   GenSpecCase(name, var, i, &rsrc->vec##name.data[iter##name++])
 
 #define GenManifestValue(name, value, setexpr) \
    (Lth_Manifest){ \
@@ -185,6 +182,9 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
       __with(char const *str = Lth_TokenStreamBump(repr->stream)->str;)
               if(strcmp(str, "true") == 0)  GenValueGetter(Integ, integ, 1);
          else if(strcmp(str, "false") == 0) GenValueGetter(Integ, integ, 0);
+         else goto unexpect;
+      break;
+   unexpect:
    default:
       ManifestError(repr, "expected initializer");
       break;
