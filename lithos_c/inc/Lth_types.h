@@ -14,6 +14,7 @@
 #define lithos3__Lth_types_h
 
 #define Lth_ScriptCall [[__call("ScriptS")]]
+#define Lth_OptArgs(n) [[__optional_args(n)]]
 
 #define Lth_Inherits(name) [[__anonymous]] name _super
 #define Lth_Mixin(name) [[__anonymous]] name _##name
