@@ -16,6 +16,22 @@
 #ifndef lithos3__Lth_hashmap_h
 #define lithos3__Lth_hashmap_h
 
+#define Lth_GenFind(hashexpr) \
+   Lth_HashMapElem *elem = Lth_HashFindItr(map, (hashexpr)); \
+   if(elem == NULL) return NULL; \
+   return elem->value
+
+#define Lth_HashMapFind(map, expr) \
+   _Generic((expr)+0, \
+      __str:           Lth_HashMapFind_str,   \
+      char       *:    Lth_HashMapFind_char,  \
+      char const *:    Lth_HashMapFind_char,  \
+      wchar_t       *: Lth_HashMapFind_wchar, \
+      wchar_t const *: Lth_HashMapFind_wchar, \
+      size_t:          Lth_HashMapFind_hash,  \
+      wchar_t:         Lth_HashMapFind_hash,  \
+      int:             Lth_HashMapFind_hash)((map), (expr))
+
 
 // Type Definitions ----------------------------------------------------------|
 
@@ -36,7 +52,7 @@ typedef struct Lth_HashMapElem
 //    table
 //
 // read-only
-//    elements
+//    elem
 //
 typedef struct Lth_HashMap
 {
@@ -118,13 +134,37 @@ static inline Lth_HashMapElem *Lth_HashFindItr(Lth_HashMap *map, size_t hash)
 }
 
 //
-// Lth_HashMapFind
+// Lth_HashMapFind_char
 //
-static inline void *Lth_HashMapFind(Lth_HashMap *map, char const *key)
+static inline void *Lth_HashMapFind_char(Lth_HashMap *map, char const *key)
 {
-   Lth_HashMapElem *elem = Lth_HashFindItr(map, Lth_Hash_char(key));
-   if(elem == NULL) return NULL;
-   return elem->value;
+   Lth_GenFind(Lth_Hash_char(key));
 }
+
+//
+// Lth_HashMapFind_str
+//
+static inline void *Lth_HashMapFind_str(Lth_HashMap *map, __str key)
+{
+   Lth_GenFind(Lth_Hash_str(key));
+}
+
+//
+// Lth_HashMapFind_wchar
+//
+static inline void *Lth_HashMapFind_wchar(Lth_HashMap *map, wchar_t const *key)
+{
+   Lth_GenFind(Lth_Hash_wchar(key));
+}
+
+//
+// Lth_HashMapFind_hash
+//
+static inline void *Lth_HashMapFind_hash(Lth_HashMap *map, size_t key)
+{
+   Lth_GenFind(key);
+}
+
+#undef Lth_GenFind
 
 #endif//lithos3__Lth_hashmap_h

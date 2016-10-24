@@ -23,8 +23,8 @@
    _Generic((val)+0, \
       int:          Lth_ManifestNew_Integ, \
       _Accum:       Lth_ManifestNew_Fixed, \
-      char const *: Lth_ManifestNew_Strng \
-   )((name), (val))
+      char       *: Lth_ManifestNew_Strng, \
+      char const *: Lth_ManifestNew_Strng)((name), (val))
 
 
 // Type Definitions ----------------------------------------------------------|
