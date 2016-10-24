@@ -33,12 +33,21 @@ __str Lth_strlocal(__str s);
 char *Lth_strealoc(char *p, char const *s);
 char *Lth_strealoc_str(char *p, __str s);
 bool  Lth_strcontains(char const *s, char ch);
+int   Lth_stricmp(char const *s1, char const *s2);
+
+// wcs
+wchar_t *Lth_wcsdup(wchar_t const *s);
+wchar_t *Lth_wcsdupstr(char const *s);
+
+// mbs
+size_t Lth_mbslen(char const *s);
 
 // Print
 void Lth_PrintString(char const *s);
 
 // Hash
 size_t Lth_Hash_char(char const *s);
-size_t Lth_Hash_str(char __str_ars const *s);
+size_t Lth_Hash_str(Lth__strchar *s);
+size_t Lth_Hash_wchar(wchar_t const *s);
 
 #endif//lithos3__Lth_stdlib_h

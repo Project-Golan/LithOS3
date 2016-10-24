@@ -24,10 +24,14 @@
 
 #define Lth_Pair(typef, types) struct { typef first; types second; }
 
+#define Lth_WithMbState() \
+   __with(mbstate_t state; memset(&state, 0, sizeof(state));)
+
 
 // Type Definitions ----------------------------------------------------------|
 
 typedef int Lth_HID;
+typedef char __str_ars const Lth__strchar;
 
 //
 // Lth_Signal

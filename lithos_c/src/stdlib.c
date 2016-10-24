@@ -16,6 +16,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #define GenStrHash() \
    if(s == NULL) return 0; \
@@ -127,6 +128,64 @@ bool Lth_strcontains(char const *s, char ch)
 }
 
 //
+// Lth_stricmp
+//
+int Lth_stricmp(char const *s1, char const *s2)
+{
+   char a, b;
+   while(*s1 && *s2)
+   {
+      if((a = toupper(*s1)) != (b = toupper(*s2)))
+         break;
+      s1++, s2++;
+   }
+   a = toupper(*s1), b = toupper(*s2);
+   return (int)a - (int)b;
+}
+
+//
+// Lth_wcsdup
+//
+wchar_t *Lth_wcsdup(wchar_t const *s)
+{
+   size_t   len = wcslen(s);
+   wchar_t *ret = malloc(sizeof(wchar_t) * (len + 1));
+   wmemcpy(ret, s, len);
+   ret[len] = '\0';
+   return ret;
+}
+
+//
+// Lth_wcsdupstr
+//
+wchar_t *Lth_wcsdupstr(char const *s)
+{
+   size_t   len = strlen(s);
+   wchar_t *ret = malloc(sizeof(wchar_t) * (len + 1));
+   for(size_t i = 0; i < len; i++) ret[i] = s[i];
+   ret[len] = '\0';
+   return ret;
+}
+
+//
+// Lth_mbslen
+//
+size_t Lth_mbslen(char const *s)
+{
+   size_t ret = 0;
+
+   Lth_WithMbState()
+      for(char const *end = s + strlen(s); s < end; ret++)
+   {
+      int next = mbrlen(s, end - s, &state);
+      if(next < 0)
+         return ret;
+      s += next;
+   }
+   return ret;
+}
+
+//
 // Lth_PrintString
 //
 // Print a C string into the ACS print buffer.
@@ -148,9 +207,31 @@ size_t Lth_Hash_char(char const *s)
 //
 // Lth_Hash_str
 //
-size_t Lth_Hash_str(char __str_ars const *s)
+size_t Lth_Hash_str(Lth__strchar *s)
 {
    GenStrHash();
+}
+
+//
+// Lth_Hash_wchar
+//
+size_t Lth_Hash_wchar(wchar_t const *s)
+{
+   if(s == NULL) return 0;
+
+   size_t ret = 0;
+
+   Lth_WithMbState()
+      for(; *s; s++)
+   {
+      char mb[MB_CUR_MAX];
+      int  conv = wcrtomb(mb, *s, &state);
+      if(conv <= 0) break;
+      for(int i = 0; i < conv; i++)
+         ret = ret * 101 + ((unsigned char)(mb[i]) & 0xff);
+   }
+
+   return ret;
 }
 
 // EOF
