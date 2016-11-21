@@ -22,10 +22,10 @@ MAKELIB=gdcc-makelib
 
 ## Directories
 
-BIN=../acs
+BIN=../../acs
 SRC=src
 INC=inc
-IR=bin
+IR=../bin
 
 ## Compiler flags
 
@@ -79,15 +79,12 @@ OUTPUT=$(SOURCES:$(SRC)/%.c=$(IR)/%.ir)
 
 ## all
 
-all: $(BIN)/lithos3l.bin $(BIN)/lithos3.bin
+all: $(BIN)/lithos3.bin
 
-## bin/lithos3*.bin
+## bin/lithos3.bin
 
-$(BIN)/lithos3l.bin: $(IR)/libc.ir $(IR)/libGDCC.ir
-	$(LD) $(LFLAGS) $(ALLOCMIN) 700000000 $^ -o $@
-
-$(BIN)/lithos3.bin: $(OUTPUT)
-	$(LD) $(LFLAGS) $(ALLOCMIN) 7000000000 $^ -o $@ -llithos3l
+$(BIN)/lithos3.bin: $(OUTPUT) $(IR)/libc.ir $(IR)/libGDCC.ir
+	$(LD) $(LFLAGS) $(ALLOCMIN) 7000000000 $^ -o $@
 
 ## ir/*.ir
 
