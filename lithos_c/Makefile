@@ -37,7 +37,6 @@ ALLOCMIN=--alloc-min Sta ""
 ## Sources
 
 SOURCES= \
-   $(SRC)/button.c \
    $(SRC)/context.c \
    $(SRC)/control.c \
    $(SRC)/draw.c \
@@ -52,7 +51,6 @@ SOURCES= \
 HEADERS= \
    $(INC)/Lth.h \
    $(INC)/Lth_assert.h \
-   $(INC)/Lth_button.h \
    $(INC)/Lth_callback.h \
    $(INC)/Lth_context.h \
    $(INC)/Lth_control.h \
@@ -62,6 +60,7 @@ HEADERS= \
    $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
    $(INC)/Lth_manifest.h \
+   $(INC)/Lth_stdfix.h \
    $(INC)/Lth_stdlib.h \
    $(INC)/Lth_token.h \
    $(INC)/Lth_tokenstream.h \

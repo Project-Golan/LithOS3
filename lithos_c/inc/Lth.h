@@ -13,6 +13,7 @@
 #ifndef lithos3__Lth_h
 #define lithos3__Lth_h
 
+#include "Lth_stdfix.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
