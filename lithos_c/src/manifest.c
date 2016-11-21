@@ -12,14 +12,10 @@
 
 #include "Lth.h"
 
-// Define fixed so it is not aliased (this breaks our code).
-#define fixed
-#include <stdfix.h>
-#undef fixed
-
 #include <stdbool.h>
 #include <string.h>
 #include <setjmp.h>
+#include "Lth_stdfix.h"
 
 #define GenAlloc(name, type) \
    if(rsrc->vec##name.size) \
