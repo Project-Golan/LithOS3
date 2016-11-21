@@ -1,11 +1,12 @@
 //-----------------------------------------------------------------------------
 //
-// Copyright © 2016 Team Doominati & Project Golan
-//
-// This file contains material copyrighted by Team Doominati, licensed under
-// the same GPLv2 license as Project Golan's code.
+// Copyright © 2016 Project Golan
 //
 // See "LICENSE" for more information.
+//
+// Copyright © 2016 Team Doominati
+//
+// See "LICENSE.doominati" for more information.
 //
 //-----------------------------------------------------------------------------
 //

@@ -1,16 +1,12 @@
 //-----------------------------------------------------------------------------
 //
-// Copyright © 2016 David P. Hill & Project Golan
-//
-// This file contains material copyrighted by David P. Hill, licensed under
-// the same GPLv2 license as Project Golan's code.
+// Copyright © 2016 Project Golan
 //
 // See "LICENSE" for more information.
 //
-// This file also contains material copyrighted by David P. Hill licensed
-// under the Lesser GPL license.
+// Copyright © 2016 David Hill
 //
-// See "COPYLIB" for more information.
+// See "LICENSE.gdcc" and "LICENSE.gdcc-lib" for more information.
 //
 //-----------------------------------------------------------------------------
 //
