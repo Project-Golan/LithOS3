@@ -19,11 +19,11 @@
 
 #if defined(Lth_X)
 
-Lth_X(SIGDESTROY, destroy,  void, struct Lth_Control *)
-Lth_X(SIGCLICK  , click,    void, struct Lth_Control *)
-Lth_X(SIGDRAW   , draw,     void, struct Lth_Control *)
-Lth_X(SIGPSTDRAW, postdraw, void, struct Lth_Control *)
-Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
+Lth_X(SigDestroy, destroy,  void, struct Lth_Control *)
+Lth_X(SigClicked, click,    void, struct Lth_Control *)
+Lth_X(SigDraw   , draw,     void, struct Lth_Control *)
+Lth_X(SigDrawPst, drawpost, void, struct Lth_Control *)
+Lth_X(SigUpdate , update,   void, struct Lth_Control *)
 
 #undef Lth_X
 
@@ -31,6 +31,7 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
 #define lithos3__Lth_callback_h
 
 #define Lth_Callback(name) ((Lth_Callback_t)(name))
+
 #define Lth_Call(name, ...) \
    do \
    { \
@@ -39,6 +40,7 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
             (name).data[cbIter](__VA_ARGS__); \
    } \
    while(0)
+
 #define Lth_CallReverse(name, ...) \
    do \
    { \
@@ -47,11 +49,6 @@ Lth_X(SIGUPDATE , update,   void, struct Lth_Control *)
             (name).data[cbIter - 1](__VA_ARGS__); \
    } \
    while(0)
-#define Lth_ControlCall(ctrl, name, ...) \
-   Lth_ListForEach(Lth_Control *owner, ctrl->descendants) \
-      Lth_Call(owner->cb.name, __VA_ARGS__); \
-   \
-   Lth_Call(ctrl->cb.name, __VA_ARGS__)
 
 
 // Type Definitions ----------------------------------------------------------|

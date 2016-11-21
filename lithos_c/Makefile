@@ -40,13 +40,15 @@ SOURCES= \
    $(SRC)/context.c \
    $(SRC)/control.c \
    $(SRC)/draw.c \
-   $(SRC)/font.c \
+   $(SRC)/fontrun.c \
+   $(SRC)/fontnew.c \
    $(SRC)/main.c \
    $(SRC)/manifest.c \
    $(SRC)/stdlib.c \
    $(SRC)/token.c \
    $(SRC)/tokenstream.c \
-   $(SRC)/window.c
+   $(SRC)/window.c \
+   $(SRC)/winman.c
 
 HEADERS= \
    $(INC)/Lth.h \
@@ -57,7 +59,6 @@ HEADERS= \
    $(INC)/Lth_draw.h \
    $(INC)/Lth_font.h \
    $(INC)/Lth_hashmap.h \
-   $(INC)/Lth_hudmessage.h \
    $(INC)/Lth_linklist.h \
    $(INC)/Lth_manifest.h \
    $(INC)/Lth_stdfix.h \
@@ -65,7 +66,8 @@ HEADERS= \
    $(INC)/Lth_token.h \
    $(INC)/Lth_tokenstream.h \
    $(INC)/Lth_types.h \
-   $(INC)/Lth_window.h
+   $(INC)/Lth_window.h \
+   $(INC)/Lth_winman.h
 
 ## Output
 

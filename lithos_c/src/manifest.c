@@ -315,7 +315,7 @@ void Lth_ResourceMapDestroy(Lth_ResourceMap *rsrc)
 {
    if(rsrc == NULL) return;
 
-   Lth_HashMapFree(&rsrc->map);
+   Lth_HashMapDestroy(&rsrc->map);
 
    if(rsrc->vecStrng.data)
       Lth_VectorForEach(char **, rsrc->vecStrng)

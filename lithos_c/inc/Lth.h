@@ -22,27 +22,41 @@
 
 #include <ACS_ZDoom.h>
 
+// Types, Assert
 #include "Lth_types.h"
 #include "Lth_assert.h"
+
+// stdlib
 #include "Lth_stdlib.h"
 
+// LinkList, HashMap
 #include "Lth_linklist.h"
 #include "Lth_hashmap.h"
 
+// Token
 #include "Lth_token.h"
+
+// TokenStream
 #include "Lth_tokenstream.h"
 
-#include "Lth_callback.h"
-
+// Manifest
 #include "Lth_manifest.h"
+
+// Context
+#include "Lth_context.h"
+
+// Draw
+#include "Lth_draw.h"
+
+// Font
 #include "Lth_font.h"
 
-#include "Lth_context.h"
+// Control
+#include "Lth_callback.h"
 #include "Lth_control.h"
-#include "Lth_button.h"
-#include "Lth_window.h"
 
-#include "Lth_hudmessage.h"
-#include "Lth_draw.h"
+// Control Types
+#include "Lth_window.h"
+#include "Lth_winman.h"
 
 #endif//lithos3__Lth_h

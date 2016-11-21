@@ -64,9 +64,9 @@ typedef struct Lth_HashMap
 // Static Functions ----------------------------------------------------------|
 
 //
-// Lth_HashMapFree
+// Lth_HashMapDestroy
 //
-static inline void Lth_HashMapFree(Lth_HashMap *map)
+static inline void Lth_HashMapDestroy(Lth_HashMap *map)
 {
    if(map == NULL) return;
 
@@ -82,10 +82,8 @@ static inline void Lth_HashMapFree(Lth_HashMap *map)
 //
 static inline void Lth_HashMapAlloc(Lth_HashMap *map, size_t count)
 {
-   Lth_assert(map != NULL);
-
    if(map->elem.data)
-      Lth_HashMapFree(map);
+      Lth_HashMapDestroy(map);
 
    size_t size =
       sizeof(Lth_HashMapElem) * count + sizeof(Lth_HashMapElem *) * count;
@@ -99,8 +97,6 @@ static inline void Lth_HashMapAlloc(Lth_HashMap *map, size_t count)
 //
 static inline void Lth_HashMapBuild(Lth_HashMap *map)
 {
-   Lth_assert(map != NULL);
-
    map->table = (Lth_HashMapElem **)(map->elem.data + map->elem.size);
 
    for(Lth_HashMapElem **elem = map->table + map->elem.size;

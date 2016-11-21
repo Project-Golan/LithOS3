@@ -20,38 +20,18 @@
 // Extern Functions ----------------------------------------------------------|
 
 //
-// Lth_ControlFont
-//
-Lth_Font *Lth_ControlFont(void *ctrl_)
-{
-   Lth_Control *ctrl = ctrl_;
-
-   if(ctrl->font)
-      return ctrl->font;
-   else
-   {
-      for(Lth_Control *p = ctrl->parent; p; p = p->parent)
-      {
-         if(p->font)
-            return p->font;
-      }
-   }
-
-   return ctrl->ctx->font;
-}
-
-//
 // Lth_ControlRun
 //
 void Lth_ControlRun(void *ctrl_)
 {
    Lth_Control *ctrl = ctrl_;
 
-   Lth_assert(ctrl != NULL);
+   Lth_ListForEach(Lth_Control *owner, ctrl->descHead)
+      Lth_ControlRun(owner);
 
-   Lth_ControlCall(ctrl, update,   ctrl);
-   Lth_ControlCall(ctrl, draw,     ctrl);
-   Lth_ControlCall(ctrl, postdraw, ctrl);
+   Lth_Call(ctrl->cb.update,   ctrl);
+   Lth_Call(ctrl->cb.draw,     ctrl);
+   Lth_Call(ctrl->cb.drawpost, ctrl);
 }
 
 //
@@ -59,9 +39,7 @@ void Lth_ControlRun(void *ctrl_)
 //
 void Lth_ControlConnect(void *ctrl_, Lth_Signal signal, Lth_Callback_t cb)
 {
-   Lth_assert(ctrl_ != NULL);
    Lth_assert(signal < Lth_SIGMAX && signal >= 0);
-   Lth_assert(cb != NULL);
 
    Lth_Control *ctrl = ctrl_;
 
@@ -86,7 +64,7 @@ void Lth_ControlDestroy(void *ctrl_)
 
    Lth_Control *ctrl = ctrl_;
 
-   Lth_ListFor(Lth_Control *owner, ctrl->descendants)
+   Lth_ListFor(Lth_Control *owner, ctrl->descHead)
    {
       Lth_ControlDestroy(owner);
       list = next;
@@ -105,14 +83,38 @@ void Lth_ControlDestroy(void *ctrl_)
 //
 // Lth_ControlAttach
 //
-void Lth_ControlAttach(void *ctrlsrc_, void *ctrldst_)
+void Lth_ControlAttach(void *ctrl_, void *ctrlS_)
 {
-   Lth_assert(ctrlsrc_ != NULL);
-   Lth_assert(ctrldst_ != NULL);
+   Lth_Control *ctrl = ctrl_, *ctrlS = ctrlS_;
+   Lth_ListInsert(&ctrlS->link, ctrlS, &ctrl->descHead);
+   ctrlS->ctx = ctrl->ctx;
+   ctrlS->parent = ctrl;
+}
 
-   Lth_Control *ctrlsrc = ctrlsrc_, *ctrldst = ctrldst_;
-   Lth_ListInsert(&ctrlsrc->link, ctrlsrc, &ctrldst->descendants);
-   ctrlsrc->ctx = ctrldst->ctx;
+//
+// Lth_ControlAttachTail
+//
+void Lth_ControlAttachTail(void *ctrl_, void *ctrlS_)
+{
+   Lth_Control *ctrl = ctrl_, *ctrlS = ctrlS_;
+   Lth_ListInsertTail(&ctrlS->link, ctrlS, &ctrl->descHead, &ctrl->descTail);
+   ctrlS->ctx = ctrl->ctx;
+   ctrlS->parent = ctrl;
+}
+
+//
+// Lth_ControlFont
+//
+Lth_Font *Lth_ControlFont(void *ctrl_)
+{
+   Lth_Control *ctrl = ctrl_;
+
+   if(ctrl->font || (ctrl->vtable.getFont && ctrl->vtable.getFont(ctrl)))
+      return ctrl->font;
+   else if(ctrl->parent)
+      return Lth_ControlFont(ctrl->parent);
+   else
+      return NULL;
 }
 
 // EOF

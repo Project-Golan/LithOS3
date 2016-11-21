@@ -59,9 +59,6 @@ typedef struct Lth_LinkList
 //
 static inline void Lth_ListLink(Lth_LinkList *list, Lth_LinkList **head)
 {
-   Lth_assert(list != NULL);
-   Lth_assert(head != NULL);
-
    Lth_LinkList *next = *head;
 
    if((list->next = next))
@@ -77,10 +74,6 @@ static inline void Lth_ListLink(Lth_LinkList *list, Lth_LinkList **head)
 static inline void Lth_ListLinkTail(Lth_LinkList *list, Lth_LinkList **head,
    Lth_LinkList **tail)
 {
-   Lth_assert(list != NULL);
-   Lth_assert(head != NULL);
-   Lth_assert(tail != NULL);
-
    Lth_LinkList *prev = *tail;
 
    if(*(list->prev = head))
@@ -97,8 +90,6 @@ static inline void Lth_ListLinkTail(Lth_LinkList *list, Lth_LinkList **head,
 //
 static inline void Lth_ListRemove(Lth_LinkList *list)
 {
-   Lth_assert(list != NULL);
-
    Lth_LinkList *next = list->next, **prev = list->prev;
 
    if(prev && (*prev = next))

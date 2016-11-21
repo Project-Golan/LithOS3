@@ -1,0 +1,274 @@
+//-----------------------------------------------------------------------------
+//
+// Copyright © 2016 Project Golan
+//
+// See "LICENSE" for more information.
+//
+//-----------------------------------------------------------------------------
+//
+// Default small font, with Japanese Katakana glyphs made by Toooooasty.
+//
+//-----------------------------------------------------------------------------
+
+[Font]
+
+//
+// Base
+//
+// Base font for ASCII glyphs.
+// If not supplied, all glyphs will be treated as Unicode.
+//
+Base = "SMALLFNT"
+
+//
+// Case
+//
+// Case-sensitivity for font.
+// If not supplied, defaults to Both
+//
+//    Both
+//       Both upper and lower case supported.
+//
+//    UpperOnly
+//       Any lower case characters printed will be converted to upper-case.
+//
+//    LowerOnly
+//       Any upper case characters printed will be converted to lower-case.
+//
+Case = "UpperOnly"
+
+//
+// ExtraDir
+//
+// Directory for Unicode glyphs.
+// If not supplied, no Unicode glyphs will be loaded.
+//
+ExtraDir = "fonts/SmallFont"
+
+//
+// Suffix
+//
+// Filename suffix for Unicode glyphs.
+// If not supplied, defaults to ".png".
+//
+Suffix = ".png"
+
+//
+// Type
+//
+// Filename suffix type for Unicode glyphs.
+// If not supplied, defaults to Character.
+//
+//    Character
+//       Takes the glyph as the suffix.
+//       Example: た = fonts/SmallFont/STCFNた.png
+//
+//    Codepoint
+//       Takes the glyph's codepoint as the suffix.
+//       Example: た = fonts/SmallFont/STCFN305F.png
+//
+//    Digit
+//       Takes the glyph's base-10 codepoint as the suffix.
+//       Example: た = fonts/SmallFont/STCFN12383.png
+//
+Type = "Character"
+
+//
+// Glyphs
+//
+// A list of all glyphs available in this font.
+//
+Glyphs = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_"
+          "ンえョのコドトにイハシォナウッは）ツどてリた"
+          "カルなゥヒマらサ、ミタエオモれほヌきメホキじテ"
+          "るク♥ュィぬセ。ずノニヨユへァ（ーが・ャラを"
+          "ヘせヤレネりワロソヲもェスチむフひアケ"
+          "〜ぞム世今夢奥山常我散日有浅為色見越酔ɢᴜ"
+
+//
+// SpaceWidth
+//
+// If not supplied, defaults to 4.
+//
+SpaceWidth = 4
+
+//
+// Height
+//
+// Required.
+//
+Height = 8
+
+[Font.GlyphData]
+"!_w"=4
+"\"_w"=7
+"#_w"=7
+"$_w"=7
+"%_w"=9
+"&_w"=8
+"'_w"=4
+"(_w"=7
+")_w"=7
+"*_w"=7
+"+_w"=5
+",_w"=4
+"-_w"=6
+"._w"=4
+"/_w"=7
+"0_w"=8
+"1_w"=5
+"2_w"=8
+"3_w"=8
+"4_w"=7
+"5_w"=7
+"6_w"=8
+"7_w"=8
+"8_w"=8
+"9_w"=8
+":_w"=4
+";_w"=4
+"<_w"=5
+"=_w"=5
+">_w"=5
+"?_w"=8
+"@_w"=9
+"A_w"=8
+"B_w"=8
+"C_w"=8
+"D_w"=8
+"E_w"=8
+"F_w"=8
+"G_w"=8
+"H_w"=8
+"I_w"=4
+"J_w"=8
+"K_w"=8
+"L_w"=8
+"M_w"=9
+"N_w"=8
+"O_w"=8
+"P_w"=8
+"Q_w"=8
+"R_w"=8
+"S_w"=7
+"T_w"=8
+"U_w"=8
+"V_w"=7
+"W_w"=9
+"X_w"=9
+"Y_w"=8
+"Z_w"=7
+"[_w"=5
+"\_w"=7
+"]_w"=5
+"^_w"=7
+"__w"=8
+"ン_w"=8
+"え_w"=32;"え_h"=32;"え_s"=-1
+"ョ_w"=8
+"の_w"=32;"の_h"=32;"の_s"=-1
+"コ_w"=8
+"ド_w"=8
+"ト_w"=8
+"に_w"=32;"に_h"=32;"に_s"=-1
+"イ_w"=8
+"ハ_w"=8
+"シ_w"=8
+"ォ_w"=8
+"ナ_w"=8
+"ウ_w"=8
+"ッ_w"=8
+"は_w"=32;"は_h"=32;"は_s"=-1
+"）_w"=8
+"ツ_w"=8
+"ど_w"=32;"ど_h"=32;"ど_s"=-1
+"て_w"=32;"て_h"=32;"て_s"=-1
+"リ_w"=8
+"た_w"=32;"た_h"=32;"た_s"=-1
+"カ_w"=8
+"ル_w"=8
+"な_w"=32;"な_h"=32;"な_s"=-1
+"ゥ_w"=8
+"ヒ_w"=8
+"マ_w"=8
+"ら_w"=32;"ら_h"=32;"ら_s"=-1
+"サ_w"=8
+"、_w"=8
+"ミ_w"=8
+"タ_w"=8
+"エ_w"=8
+"オ_w"=8
+"モ_w"=8
+"れ_w"=32;"れ_h"=32;"れ_s"=-1
+"ほ_w"=32;"ほ_h"=32;"ほ_s"=-1
+"ヌ_w"=8
+"き_w"=32;"き_h"=32;"き_s"=-1
+"メ_w"=8
+"ホ_w"=8
+"キ_w"=8
+"じ_w"=32;"じ_h"=32;"じ_s"=-1
+"テ_w"=8
+"る_w"=32;"る_h"=32;"る_s"=-1
+"ク_w"=8
+"♥_w"=8
+"ュ_w"=8
+"ィ_w"=8
+"ぬ_w"=32;"ぬ_h"=32;"ぬ_s"=-1
+"セ_w"=8
+"。_w"=8
+"ず_w"=32;"ず_h"=32;"ず_s"=-1
+"ノ_w"=8
+"ニ_w"=8
+"ヨ_w"=8
+"ユ_w"=8
+"へ_w"=32;"へ_h"=32;"へ_s"=-1
+"ァ_w"=8
+"（_w"=8
+"ー_w"=8
+"が_w"=32;"が_h"=32;"が_s"=-1
+"・_w"=32;"・_h"=32;"・_s"=-1
+"ャ_w"=8
+"ラ_w"=8
+"を_w"=32;"を_h"=32;"を_s"=-1
+"ヘ_w"=8
+"せ_w"=32;"せ_h"=32;"せ_s"=-1
+"ヤ_w"=8
+"レ_w"=8
+"ネ_w"=8
+"り_w"=32;"り_h"=32;"り_s"=-1
+"ワ_w"=8
+"ロ_w"=8
+"ソ_w"=8
+"ヲ_w"=8
+"も_w"=32;"も_h"=32;"も_s"=-1
+"ェ_w"=8
+"ス_w"=8
+"チ_w"=8
+"む_w"=32;"む_h"=32;"む_s"=-1
+"フ_w"=8
+"ひ_w"=32;"ひ_h"=32;"ひ_s"=-1
+"ア_w"=8
+"ケ_w"=8
+"〜_w"=8
+"ぞ_w"=32;"ぞ_h"=32;"ぞ_s"=-1
+"ム_w"=8
+"世_w"=32;"世_h"=32;"世_s"=-1
+"今_w"=32;"今_h"=32;"今_s"=-1
+"夢_w"=32;"夢_h"=32;"夢_s"=-1
+"奥_w"=32;"奥_h"=32;"奥_s"=-1
+"山_w"=32;"山_h"=32;"山_s"=-1
+"常_w"=32;"常_h"=32;"常_s"=-1
+"我_w"=32;"我_h"=32;"我_s"=-1
+"散_w"=32;"散_h"=32;"散_s"=-1
+"日_w"=32;"日_h"=32;"日_s"=-1
+"有_w"=32;"有_h"=32;"有_s"=-1
+"浅_w"=32;"浅_h"=32;"浅_s"=-1
+"為_w"=32;"為_h"=32;"為_s"=-1
+"色_w"=32;"色_h"=32;"色_s"=-1
+"見_w"=32;"見_h"=32;"見_s"=-1
+"越_w"=32;"越_h"=32;"越_s"=-1
+"酔_w"=32;"酔_h"=32;"酔_s"=-1
+"ɢ_w"=32;"ɢ_h"=32;"ɢ_s"=-1
+"ᴜ_w"=43;"ᴜ_h"=28;"ᴜ_s"=-1
+
+// EOF

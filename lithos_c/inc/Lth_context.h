@@ -33,32 +33,26 @@
 //
 // internal data
 //    clip
-//    map
 //    rsrcBase
 //    rsrc
-//    lastmap
 //
 // read-only
-//    w:    width of screen
-//    h:    height of screen
+//    scale: current draw scale
+//    w:     width of screen
+//    h:     height of screen
 //
 // read-write
 //    hid:      HUD ID range
-//    mapspace: space between newly mapped windows that are auto-positioned
-//    font:     default font for drawing
 //
 typedef struct Lth_Context
 {
-   struct { Lth_Rect rects[16]; int num; } clip;
-   struct { Lth_LinkList *head, *tail; }   map;
+   struct { Lth_Rect rects[16]; size_t num; } clip;
    Lth_ResourceMap *rsrcBase, *rsrc;
-   Lth_IVec2 lastmap;
 
+   _Accum scale;
    int w, h;
 
    Lth_HIDRange hid;
-   Lth_IVec2    mapspace;
-   Lth_Font    *font;
 } Lth_Context;
 
 
@@ -68,11 +62,11 @@ Lth_Context *Lth_ContextNew(int w, int h, Lth_HID hidBase, Lth_HID hidEnd);
 void Lth_ContextDestroy(Lth_Context *ctx);
 void Lth_ContextRun(Lth_Context *ctx);
 
-void Lth_ContextMap(Lth_Context *ctx, struct Lth_Window *window);
-
 void Lth_ContextClipPush(Lth_Context *ctx, int x, int y, int w, int h);
 void Lth_ContextClipPop(Lth_Context *ctx);
 
 void *Lth_ContextResource(Lth_Context *ctx, char const *key);
+
+void Lth_ContextScale(Lth_Context *ctx, _Accum s);
 
 #endif//lithos3__Lth_context_h

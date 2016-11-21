@@ -1,0 +1,119 @@
+//-----------------------------------------------------------------------------
+//
+// Copyright © 2016 Project Golan
+//
+// See "LICENSE" for more information.
+//
+//-----------------------------------------------------------------------------
+//
+// Default small font.
+//
+//-----------------------------------------------------------------------------
+
+[Font]
+
+//
+// Base
+//
+// Base font for ASCII glyphs.
+// If not supplied, all glyphs will be treated as Unicode.
+//
+Base = "SMALLFNT"
+
+//
+// Case
+//
+// Case-sensitivity for font.
+// If not supplied, defaults to Both
+//
+//    Both
+//       Both upper and lower case supported.
+//
+//    UpperOnly
+//       Any lower case characters printed will be converted to upper-case.
+//
+//    LowerOnly
+//       Any upper case characters printed will be converted to lower-case.
+//
+Case = "UpperOnly"
+
+//
+// Glyphs
+//
+// A list of all glyphs available in this font.
+//
+Glyphs = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_"
+
+//
+// Height
+//
+// Required.
+//
+Height = 8
+
+[Font.GlyphData]
+"!_w"=4
+"\"_w"=7
+"#_w"=7
+"$_w"=7
+"%_w"=9
+"&_w"=8
+"'_w"=4
+"(_w"=7
+")_w"=7
+"*_w"=7
+"+_w"=5
+",_w"=4
+"-_w"=6
+"._w"=4
+"/_w"=7
+"0_w"=8
+"1_w"=5
+"2_w"=8
+"3_w"=8
+"4_w"=7
+"5_w"=7
+"6_w"=8
+"7_w"=8
+"8_w"=8
+"9_w"=8
+":_w"=4
+";_w"=4
+"<_w"=5
+"=_w"=5
+">_w"=5
+"?_w"=8
+"@_w"=9
+"A_w"=8
+"B_w"=8
+"C_w"=8
+"D_w"=8
+"E_w"=8
+"F_w"=8
+"G_w"=8
+"H_w"=8
+"I_w"=4
+"J_w"=8
+"K_w"=8
+"L_w"=8
+"M_w"=9
+"N_w"=8
+"O_w"=8
+"P_w"=8
+"Q_w"=8
+"R_w"=8
+"S_w"=7
+"T_w"=8
+"U_w"=8
+"V_w"=7
+"W_w"=9
+"X_w"=9
+"Y_w"=8
+"Z_w"=7
+"[_w"=5
+"\_w"=7
+"]_w"=5
+"^_w"=7
+"__w"=8
+
+// EOF
