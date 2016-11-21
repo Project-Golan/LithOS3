@@ -22,6 +22,7 @@ Lth_X(Number)
 Lth_X(Space )
 Lth_X(String)
 
+Lth_X(Minus ) // -
 Lth_X(Dot   ) // .
 Lth_X(Equals) // =
 Lth_X(Semico) // ;

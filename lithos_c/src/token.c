@@ -50,6 +50,11 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
 
    case '\n': Lth_TokenSet(out, LnEnd ); return;
 
+   case '-':
+      if(isdigit(Lth_fpeekc(fp))) break;
+      Lth_TokenSet(out, Minus);
+      return;
+
    case '.':
       if(isdigit(Lth_fpeekc(fp))) break;
       Lth_TokenSet(out, Dot);
@@ -75,6 +80,7 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
       char beg = ch;
 
       ACS_BeginPrint();
+
       while((ch = fgetc(fp)) != beg && ch != EOF)
       {
          if(ch != '\\')
@@ -94,7 +100,7 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
       return;
    }
 
-   if(isdigit(ch) || ch == '.')
+   if(isdigit(ch) || ch == '.' || ch == '-')
    {
       ACS_BeginPrint();
 
