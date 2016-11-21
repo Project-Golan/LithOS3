@@ -81,14 +81,12 @@ static ssize_t Lth_TokenFileStream_read(void *cookie_, char *buf, size_t size)
                if(cookie->getc(cookie) == EOF)
                   return i;
             buf[i++] = ' ';
-            continue;
          }
          else if(cookie->getc(cookie) == '/')
          {
             do if(cookie->bumpc(cookie) == EOF) return i;
             while(cookie->getc(cookie) != '\n');
             buf[i++] = ' ';
-            continue;
          }
          else
             buf[i++] = '/';
