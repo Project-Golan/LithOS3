@@ -16,8 +16,6 @@
 #define Lth_isidenti(c) \
    (isalnum(c) || c == '_' || c == '$' || c == '\'' || c > 0x80)
 
-// Post-for. Sort of.
-#define Lth_pfor(cond, expr) while((cond) && ((expr), true))
 
 
 // Extern Functions ----------------------------------------------------------|

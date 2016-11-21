@@ -22,11 +22,15 @@
 #define Lth_Vector(type) struct { type *data; size_t size, bufsz; }
 #define Lth_VectorForEach(type, vec) \
    for(type itr = (vec).data; itr != (vec).data + (vec).size; itr++)
+#define Lth_VectorAlloc(type, vec) \
+   (vec).data = calloc((vec).size, sizeof(type))
 
 #define Lth_Pair(typef, types) struct { typef first; types second; }
 
 #define Lth_WithMbState() \
    __with(mbstate_t state; memset(&state, 0, sizeof(state));)
+
+#define Lth_pfor(cond, expr) while((cond) && ((expr), true))
 
 
 // Type Definitions ----------------------------------------------------------|
