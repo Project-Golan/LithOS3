@@ -120,10 +120,22 @@ static void ManifestGetFixed(ManifestState *repr, size_t key, char const *str)
 //
 // ManifestGetStrng
 //
-static void ManifestGetStrng(ManifestState *repr, size_t key, char const *str)
+static void ManifestGetStrng(ManifestState *repr, size_t key)
 {
-   // string-constant
-   GenValueGetter(Strng, strng, Lth_strdup(str));
+   // string-constant-seq:
+   //    string-constant ;(opt)
+   //    string-constant-seq string-constant ;(opt)
+
+   ACS_BeginPrint();
+
+   // string-constant-seq
+   do Lth_PrintString(Lth_TokenStreamBump(repr->stream)->str);
+   while(Lth_TokenStreamPeek(repr->stream)->type == Lth_TOK_String);
+
+   // ;(opt)
+   Lth_TokenStreamDrop(repr->stream, Lth_TOK_Semico);
+
+   GenValueGetter(Strng, strng, Lth_strdup_str(ACS_EndStrParam()));
 }
 
 //
@@ -160,7 +172,7 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
    // initializer:
    //    integer-constant
    //    fixed-constant
-   //    string-constant
+   //    boolean-constant
 
    switch(Lth_TokenStreamPeek(repr->stream)->type)
    {
@@ -171,10 +183,10 @@ static void ManifestGetInitializer(ManifestState *repr, size_t key)
          else
             ManifestGetFixed(repr, key, str);
       break;
-   case Lth_TOK_String:
-      ManifestGetStrng(repr, key, Lth_TokenStreamBump(repr->stream)->str);
-      break;
    case Lth_TOK_Identi:
+      // boolean-constant:
+      //    true
+      //    false
       __with(char const *str = Lth_TokenStreamBump(repr->stream)->str;)
               if(strcmp(str, "true") == 0)  GenValueGetter(Integ, integ, 1);
          else if(strcmp(str, "false") == 0) GenValueGetter(Integ, integ, 0);
@@ -202,6 +214,7 @@ static void ManifestGetDecl_Object(ManifestState *repr)
 
    // object-declaration:
    //    object-name = initializer object-decl-terminator
+   //    object-name = string-constant-seq
 
    // identifier
    if(Lth_TokenStreamPeek(repr->stream)->type != Lth_TOK_String &&
@@ -220,21 +233,28 @@ static void ManifestGetDecl_Object(ManifestState *repr)
 
    size_t key = Lth_Hash_str(ACS_EndStrParam());
 
-   repr->stream->skipeol = false;
-
    // =
    if(!Lth_TokenStreamDrop(repr->stream, Lth_TOK_Equals))
       ManifestError(repr, "expected '='");
 
    // initializer
-   ManifestGetInitializer(repr, key);
+   if(Lth_TokenStreamPeek(repr->stream)->type != Lth_TOK_String)
+   {
+      repr->stream->skipeol = false;
 
-   // object-decl-terminator
-   if(!Lth_TokenStreamDrop(repr->stream, Lth_TOK_LnEnd) &&
-      !Lth_TokenStreamDrop(repr->stream, Lth_TOK_Semico))
-      ManifestError(repr, "expected newline or ';'");
+      ManifestGetInitializer(repr, key);
 
-   repr->stream->skipeol = true;
+      // object-decl-terminator
+      if(!Lth_TokenStreamDrop(repr->stream, Lth_TOK_LnEnd) &&
+         !Lth_TokenStreamDrop(repr->stream, Lth_TOK_Semico))
+         ManifestError(repr, "expected newline or ';'");
+
+      repr->stream->skipeol = true;
+   }
+
+   // string-constant-seq
+   else
+      ManifestGetStrng(repr, key);
 }
 
 //
@@ -263,6 +283,10 @@ static void ManifestGetDecl_Header(ManifestState *repr)
 //
 Lth_ScriptCall static void ManifestGetDecl(ManifestState *repr)
 {
+   // declaration:
+   //    header-declaration
+   //    object-declaration
+
    switch(Lth_TokenStreamPeek(repr->stream)->type)
    {
    case Lth_TOK_BrackO: ManifestGetDecl_Header(repr); break;
@@ -309,14 +333,18 @@ void Lth_ResourceMapDestroy(Lth_ResourceMap *rsrc)
 //
 Lth_ScriptCall Lth_ResourceMap *Lth_ManifestLoad_extern(char const *fname)
 {
+   if(fname == NULL)
+   {
+      fprintf(stderr, "%s: Invalid filename.", __func__);
+      return NULL;
+   }
+
    ManifestState repr = {};
 
    repr.fname  = fname;
    repr.data   = Lth_strdup_str(Lth_strlocal(Lth_strentdup(repr.fname)));
    repr.stream = Lth_TokenStreamOpen(repr.data, strlen(repr.data));
    repr.block  = Lth_strdup("Base");
-
-   Lth_assert(repr.stream != NULL);
 
    if(strcmp(repr.data, repr.fname) == 0)
    {
@@ -348,7 +376,6 @@ Lth_ScriptCall Lth_ResourceMap *Lth_ManifestLoad_extern(char const *fname)
 Lth_ScriptCall Lth_ResourceMap *Lth_ManifestLoad_static(Lth_Manifest *manifest)
 {
    Lth_ResourceMap *rsrc = calloc(1, sizeof(Lth_ResourceMap));
-   Lth_assert(rsrc != NULL);
 
    size_t count = 0;
 
