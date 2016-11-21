@@ -16,6 +16,7 @@
 #define Lth_isidenti(c) \
    (isalnum(c) || c == '_' || c == '$' || c == '\'' || c > 0x80)
 
+#define Lth_integk(n) ((int_k_t)(n))
 
 
 // Extern Functions ----------------------------------------------------------|
@@ -39,6 +40,10 @@ wchar_t *Lth_wcsdupstr(char const *s);
 
 // mbs
 size_t Lth_mbslen(char const *s);
+
+// accum
+int Lth_ceilk(_Accum n);
+_Accum Lth_fractk(_Accum n);
 
 // Print
 void Lth_PrintString(char const *s);

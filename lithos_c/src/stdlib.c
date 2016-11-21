@@ -17,6 +17,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "Lth_stdfix.h"
 
 #define GenStrHash() \
    if(s == NULL) return 0; \
@@ -50,7 +51,7 @@ char *Lth_strdup(char const *s)
 {
    size_t len = strlen(s);
    char *ret = malloc(len + 1);
-   memcpy(ret, s, len);
+   memmove(ret, s, len);
    ret[len] = '\0';
    return ret;
 }
@@ -101,7 +102,7 @@ char *Lth_strealoc(char *p, char const *s)
 {
    size_t len = strlen(s);
    p = realloc(p, len + 1);
-   memcpy(p, s, len);
+   memmove(p, s, len);
    p[len] = '\0';
    return p;
 }
@@ -150,7 +151,7 @@ wchar_t *Lth_wcsdup(wchar_t const *s)
 {
    size_t   len = wcslen(s);
    wchar_t *ret = malloc(sizeof(wchar_t) * (len + 1));
-   wmemcpy(ret, s, len);
+   wmemmove(ret, s, len);
    ret[len] = '\0';
    return ret;
 }
@@ -182,7 +183,30 @@ size_t Lth_mbslen(char const *s)
          return ret;
       s += next;
    }
+
    return ret;
+}
+
+//
+// Lth_ceilk
+//
+int Lth_ceilk(_Accum n)
+{
+   union { int_k_t i; _Accum a; } u = { .a = n };
+   if(u.i & 0xFFF1)
+      return u.i &= 0xFFFF0000, u.a + 1;
+   else
+      return (int)u.a;
+}
+
+//
+// Lth_fractk
+//
+_Accum Lth_fractk(_Accum n)
+{
+   union { int_k_t i; _Accum a; } u = { .a = n };
+   u.i &= 0xFFFF;
+   return u.a;
 }
 
 //
@@ -192,8 +216,7 @@ size_t Lth_mbslen(char const *s)
 //
 void Lth_PrintString(char const *s)
 {
-   if(s == NULL) return;
-   for(char const *p = s; *p;) ACS_PrintChar(*p++);
+   ACS_PrintGlobalCharArray((int)s, __GDCC__Sta);
 }
 
 //
