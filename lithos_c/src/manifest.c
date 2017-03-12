@@ -10,6 +10,9 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "Lth_libinfo.h"
+
+#if !LITHOS3_NO_MANIFEST
 #include "Lth.h"
 
 #include <stdbool.h>
@@ -448,4 +451,4 @@ Lth_Manifest Lth_ManifestNew_Strng(char const *key, char const *value)
    return GenManifestValue(Strng, strng, Lth_strdup(value));
 }
 
-// EOF
+#endif//LITHOS3_NO_MANIFEST

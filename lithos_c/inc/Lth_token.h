@@ -14,6 +14,8 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "Lth_libinfo.h"
+
 #if defined(Lth_X)
 
 Lth_X(ChrSeq)
@@ -34,7 +36,7 @@ Lth_X(LnEnd ) // \n
 
 #undef Lth_X
 
-#elif !defined(lithos3__Lth_token_h)
+#elif !defined(lithos3__Lth_token_h) && !LITHOS3_NO_TOKEN
 #define lithos3__Lth_token_h
 
 #include <stdio.h>

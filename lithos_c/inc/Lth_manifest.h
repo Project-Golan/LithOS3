@@ -10,7 +10,9 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef lithos3__Lth_manifest_h
+#include "Lth_libinfo.h"
+
+#if !defined(lithos3__Lth_manifest_h) && !LITHOS3_NO_MANIFEST
 #define lithos3__Lth_manifest_h
 
 #include "Lth_types.h"

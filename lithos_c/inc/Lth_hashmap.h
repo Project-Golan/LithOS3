@@ -12,7 +12,9 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef lithos3__Lth_hashmap_h
+#include "Lth_libinfo.h"
+
+#if !defined(lithos3__Lth_hashmap_h) && !LITHOS3_NO_HASHMAP
 #define lithos3__Lth_hashmap_h
 
 #include "Lth_stdlib.h"

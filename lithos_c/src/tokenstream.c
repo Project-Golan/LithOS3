@@ -12,6 +12,10 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "Lth_libinfo.h"
+
+#if !LITHOS3_NO_TOKENSTREAM
+
 #define _GNU_SOURCE
 
 #include "Lth.h"
@@ -215,4 +219,4 @@ bool Lth_TokenStreamDrop(Lth_TokenStream *stream, Lth_TokenType tt)
    return false;
 }
 
-// EOF
+#endif//LITHOS3_NO_TOKENSTREAM

@@ -12,6 +12,10 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "Lth_libinfo.h"
+
+#if !LITHOS3_NO_TOKEN
+
 #define _GNU_SOURCE
 
 #include "Lth.h"
@@ -149,4 +153,4 @@ char const *Lth_TokenName(Lth_TokenType type)
    return names[type];
 }
 
-// EOF
+#endif//LITHOS3_NO_TOKEN

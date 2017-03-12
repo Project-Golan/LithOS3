@@ -10,7 +10,9 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef lithos3__Lth_tokenstream_h
+#include "Lth_libinfo.h"
+
+#if !defined(lithos3__Lth_tokenstream_h) && !LITHOS3_NO_TOKENSTREAM
 #define lithos3__Lth_tokenstream_h
 
 #include "Lth_token.h"

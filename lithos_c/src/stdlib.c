@@ -10,6 +10,10 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "Lth_libinfo.h"
+
+#if !LITHOS3_NO_STDLIB
+
 #include "Lth.h"
 
 #include <GDCC.h>
@@ -253,4 +257,4 @@ size_t Lth_Hash_wchar(wchar_t const *s)
    return ret;
 }
 
-// EOF
+#endif//LITHOS3_NO_STDLIB
