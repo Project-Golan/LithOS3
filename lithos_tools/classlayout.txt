@@ -1,5 +1,0 @@
-Lth_Rect
-\-Lth_Control
-| |-Lth_Button
-\ \-Lth_Window
-
