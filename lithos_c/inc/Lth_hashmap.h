@@ -38,6 +38,12 @@
       wchar_t:                Lth_HashMapFind_hash,  \
       int:                    Lth_HashMapFind_hash)((map), (expr))
 
+// Static Functions ----------------------------------------------------------|
+
+static inline void Lth_HashMapDestroy(struct Lth_HashMap *map);
+static inline void Lth_HashMapAlloc(struct Lth_HashMap *map, size_t count);
+static inline void Lth_HashMapBuild(struct Lth_HashMap *map);
+
 
 // Type Definitions ----------------------------------------------------------|
 
@@ -64,6 +70,10 @@ typedef struct Lth_HashMap
 {
    Lth_HashMapElem           **table;
    Lth_Vector(Lth_HashMapElem) elem;
+   
+   __prop destroy {call: Lth_HashMapDestroy(this)}
+   __prop alloc   {call: Lth_HashMapAlloc  (this)}
+   __prop build   {call: Lth_HashMapBuild  (this)}
 } Lth_HashMap;
 
 
