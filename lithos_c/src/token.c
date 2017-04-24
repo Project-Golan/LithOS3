@@ -84,15 +84,17 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
 
       while((ch = fgetc(fp)) != beg && ch != EOF)
       {
-         if(ch != '\\')
-            ACS_PrintChar(ch);
-         else if((ch = fgetc(fp)) == beg)
-            ACS_PrintChar(ch);
-         else
+         if(ch == '\\')
          {
-            ungetc(ch, fp);
-            ACS_PrintChar('\\');
+            switch((ch = fgetc(fp)))
+            {
+            case '\\': ACS_PrintChar(ch); break;
+            case 'C':  ACS_PrintChar('\C'); break;
+            default: if(ch == beg) ACS_PrintChar(beg); break;
+            }
          }
+         else
+            ACS_PrintChar(ch);
       }
 
       out->str  = Lth_strdup_str(ACS_EndStrParam());
