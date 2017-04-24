@@ -46,6 +46,8 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
 
    case '[':  Lth_TokenSet(out, BrackO); return;
    case ']':  Lth_TokenSet(out, BrackC); return;
+   case '{':  Lth_TokenSet(out, BraceO); return;
+   case '}':  Lth_TokenSet(out, BraceC); return;
 
    case '\n': Lth_TokenSet(out, LnEnd ); return;
 

@@ -31,6 +31,8 @@ Lth_X(Semico) // ;
 
 Lth_X(BrackO) // [
 Lth_X(BrackC) // ]
+Lth_X(BraceO) // {
+Lth_X(BraceC) // }
 
 Lth_X(LnEnd ) // \n
 
