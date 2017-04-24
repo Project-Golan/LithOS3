@@ -43,6 +43,13 @@
 static inline void Lth_HashMapDestroy(struct Lth_HashMap *map);
 static inline void Lth_HashMapAlloc(struct Lth_HashMap *map, size_t count);
 static inline void Lth_HashMapBuild(struct Lth_HashMap *map);
+static inline void *Lth_HashMapFind_hash(struct Lth_HashMap *map, size_t key);
+static inline void *Lth_HashMapFind_wchar(struct Lth_HashMap *map,
+   wchar_t const *key);
+static inline void *Lth_HashMapFind_str(struct Lth_HashMap *map,
+   char __str_ars const *key);
+static inline void *Lth_HashMapFind_char(struct Lth_HashMap *map,
+   char const *key);
 
 
 // Type Definitions ----------------------------------------------------------|
@@ -74,6 +81,10 @@ typedef struct Lth_HashMap
    __prop destroy {call: Lth_HashMapDestroy(this)}
    __prop alloc   {call: Lth_HashMapAlloc  (this)}
    __prop build   {call: Lth_HashMapBuild  (this)}
+   __prop findhash {call: Lth_HashMapFind_hash (this)}
+   __prop findwchr {call: Lth_HashMapFind_wchar(this)}
+   __prop find_str {call: Lth_HashMapFind_str  (this)}
+   __prop findcstr {call: Lth_HashMapFind_char (this)}
 } Lth_HashMap;
 
 
