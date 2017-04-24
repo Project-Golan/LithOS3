@@ -48,6 +48,11 @@ Lth_X(LnEnd ) // \n
    ((out).str != NULL ? free((out).str) : ((void)0))
 
 
+// Extern Functions ----------------------------------------------------------|
+
+void Lth_TokenGet(FILE *fp, struct Lth_Token *out);
+
+
 // Type Definitions ----------------------------------------------------------|
 
 //
@@ -67,6 +72,8 @@ typedef enum Lth_TokenType
 //
 typedef struct Lth_Token
 {
+   __prop get {call: Lth_TokenGet(__arg, this)}
+   
    Lth_TokenType type;
    char         *str;
 } Lth_Token;
@@ -74,7 +81,6 @@ typedef struct Lth_Token
 
 // Extern Functions ----------------------------------------------------------|
 
-void Lth_TokenGet(FILE *fp, Lth_Token *out);
 char const *Lth_TokenName(Lth_TokenType type);
 
 #endif//lithos3__Lth_token_h
