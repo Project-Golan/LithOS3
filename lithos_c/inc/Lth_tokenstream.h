@@ -20,6 +20,16 @@
 #include <stdio.h>
 
 
+// Extern Functions ----------------------------------------------------------|
+
+struct Lth_TokenStream *Lth_TokenStreamOpen(void *data, size_t size);
+void Lth_TokenStreamClose(struct Lth_TokenStream *stream);
+
+Lth_Token const *Lth_TokenStreamBump(struct Lth_TokenStream *stream);
+Lth_Token const *Lth_TokenStreamPeek(struct Lth_TokenStream *stream);
+bool             Lth_TokenStreamDrop(struct Lth_TokenStream *stream, Lth_TokenType tt);
+
+
 // Type Definitions ----------------------------------------------------------|
 
 //
@@ -36,6 +46,11 @@
 //
 typedef struct Lth_TokenStream
 {
+   __prop close {call: Lth_TokenStreamClose(this)}
+   __prop bump  {call: Lth_TokenStreamBump(this)}
+   __prop peek  {call: Lth_TokenStreamPeek(this)}
+   __prop drop  {call: Lth_TokenStreamDrop(this)}
+   
    FILE     *fp;
    Lth_Token tokbuf;
    bool      filled;
@@ -43,15 +58,5 @@ typedef struct Lth_TokenStream
    bool skipeol;
    bool skipspc;
 } Lth_TokenStream;
-
-
-// Extern Functions ----------------------------------------------------------|
-
-Lth_TokenStream *Lth_TokenStreamOpen(void *data, size_t size);
-void Lth_TokenStreamClose(Lth_TokenStream *stream);
-
-Lth_Token const *Lth_TokenStreamBump(Lth_TokenStream *stream);
-Lth_Token const *Lth_TokenStreamPeek(Lth_TokenStream *stream);
-bool             Lth_TokenStreamDrop(Lth_TokenStream *stream, Lth_TokenType tt);
 
 #endif//lithos3__Lth_tokenstream_h
