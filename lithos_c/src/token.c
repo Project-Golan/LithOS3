@@ -91,8 +91,9 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
          {
             switch((ch = fgetc(fp)))
             {
-            case '\\': ACS_PrintChar(ch); break;
+            case '\\': ACS_PrintChar('\\'); break;
             case 'C':  ACS_PrintChar('\C'); break;
+            case 'n':  ACS_PrintChar('\n'); break;
             default: if(ch == beg) ACS_PrintChar(beg); break;
             }
          }
