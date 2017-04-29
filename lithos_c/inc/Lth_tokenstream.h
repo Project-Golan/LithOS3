@@ -36,11 +36,11 @@ bool             Lth_TokenStreamDrop(struct Lth_TokenStream *stream, Lth_TokenTy
 // Lth_TokenStream
 //
 // internal data
-//    fp
 //    tokbuf
 //    filled
 //
 // read-write
+//    fp:      File that the token stream is parsing.
 //    skipeol: Skip line end tokens.   Defaults to true.
 //    skipspc: Skip whitespace tokens. Defaults to true.
 //
@@ -51,10 +51,10 @@ typedef struct Lth_TokenStream
    __prop peek  {call: Lth_TokenStreamPeek(this)}
    __prop drop  {call: Lth_TokenStreamDrop(this)}
    
-   FILE     *fp;
    Lth_Token tokbuf;
    bool      filled;
 
+   FILE     *fp;
    bool skipeol;
    bool skipspc;
 } Lth_TokenStream;
