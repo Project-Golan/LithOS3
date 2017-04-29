@@ -43,6 +43,9 @@ void Lth_TokenGet(FILE *fp, Lth_Token *out)
    {
    case '=':  Lth_TokenSet(out, Equals); return;
    case ';':  Lth_TokenSet(out, Semico); return;
+   case ',':  Lth_TokenSet(out, Comma ); return;
+   case '>':  Lth_TokenSet(out, GT    ); return;
+   case '<':  Lth_TokenSet(out, LT    ); return;
 
    case '[':  Lth_TokenSet(out, BrackO); return;
    case ']':  Lth_TokenSet(out, BrackC); return;

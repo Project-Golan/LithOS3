@@ -78,9 +78,9 @@ typedef struct Lth_HashMap
    Lth_HashMapElem           **table;
    Lth_Vector(Lth_HashMapElem) elem;
    
-   __prop destroy {call: Lth_HashMapDestroy(this)}
-   __prop alloc   {call: Lth_HashMapAlloc  (this)}
-   __prop build   {call: Lth_HashMapBuild  (this)}
+   __prop destroy  {call: Lth_HashMapDestroy(this)}
+   __prop alloc    {call: Lth_HashMapAlloc  (this)}
+   __prop build    {call: Lth_HashMapBuild  (this)}
    __prop findhash {call: Lth_HashMapFind_hash (this)}
    __prop findwchr {call: Lth_HashMapFind_wchar(this)}
    __prop find_str {call: Lth_HashMapFind_str  (this)}

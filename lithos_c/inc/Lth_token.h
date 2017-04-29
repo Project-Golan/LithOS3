@@ -28,6 +28,9 @@ Lth_X(Minus ) // -
 Lth_X(Dot   ) // .
 Lth_X(Equals) // =
 Lth_X(Semico) // ;
+Lth_X(Comma ) // ,
+Lth_X(GT    ) // >
+Lth_X(LT    ) // <
 
 Lth_X(BrackO) // [
 Lth_X(BrackC) // ]
